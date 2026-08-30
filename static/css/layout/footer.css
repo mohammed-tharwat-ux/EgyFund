@@ -1,0 +1,143 @@
+/* =========================================================
+   Site Footer
+========================================================= */
+
+.site-footer {
+    margin-top: auto;
+    padding: 70px 0 18px;
+    background-color: #ffffff;
+    color: #33415f;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 80px;
+    width: min(100% - 120px, 1220px);
+    margin-inline: auto;
+}
+
+/* =========================================================
+   Footer Logo - Same Header Logo
+========================================================= */
+
+.footer-brand .logo {
+    display: block;
+}
+
+.footer-brand .logo a {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: fit-content;
+    text-decoration: none;
+}
+
+.footer-brand .logo .logo-img-icon {
+    display: block;
+    width: auto;
+    height: 35px;
+    object-fit: contain;
+}
+
+.footer-brand .logo .logo-img-text {
+    display: block;
+    width: auto;
+    height: 45px;
+    margin-left: -60px;
+    object-fit: contain;
+}
+
+
+
+.footer-description {
+    max-width: 370px;
+    margin: 32px 0 0;
+    color: #334155;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.footer-links {
+    display: flex;
+    gap: 42px;
+    padding-top: 35px;
+}
+
+.footer-links-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 115px;
+}
+
+.footer-links a {
+    color: #8a9bb5;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #e2ac31;
+}
+
+.footer-bottom {
+    width: min(100% - 120px, 1280px);
+    margin: 160px auto 0;
+    padding-top: 24px;
+    border-top: 2px solid #334155;
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #687892;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   Responsive Footer
+========================================================= */
+
+@media (max-width: 700px) {
+    .site-footer {
+        padding-top: 50px;
+    }
+
+    .footer-container {
+        width: min(100% - 40px, 500px);
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+    }
+
+    .footer-description {
+        max-width: 100%;
+        font-size: 15px;
+    }
+
+    .footer-links {
+        padding-top: 0;
+    }
+
+    .footer-bottom {
+        width: min(100% - 40px, 500px);
+        margin-top: 70px;
+    }
+
+    .footer-bottom p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+}

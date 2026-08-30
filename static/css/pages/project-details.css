@@ -1,0 +1,396 @@
+.details-page {
+    background-color: #ffffff;
+}
+
+.details-section {
+    padding: 25px 0 30px;
+}
+
+.details-container {
+    width: min(100% - 90px, 1220px);
+    margin: 0 auto;
+}
+
+.details-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #34425c;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+}
+
+.details-meta span {
+    padding: 5px 8px;
+    background-color: #f1f5f8;
+    font-weight: 700;
+}
+
+.details-title {
+    margin: 10px 0 14px;
+    color: #20283a;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    line-height: 1.2;
+}
+
+.details-cover {
+    position: relative;
+    height: 285px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.details-cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cover-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    color: #ffffff;
+    font-size: 11px;
+    letter-spacing: 3px;
+    transform: translateX(-50%);
+}
+
+.details-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 310px;
+    gap: 45px;
+    padding: 34px 35px 0;
+}
+
+.project-story h2,
+.comments-section h2,
+.similar-section h2 {
+    margin: 0 0 17px;
+    color: #172033;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+}
+
+.story-tags {
+    margin-bottom: 25px;
+    color: #687892;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.project-story p {
+    max-width: 680px;
+    margin: 0 0 16px;
+    color: #34425c;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.project-dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin-top: 24px;
+}
+
+.project-dates span {
+    padding: 9px 15px;
+    border: 1px solid #71809a;
+    border-radius: 12px;
+    color: #20283a;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.funding-card {
+    align-self: start;
+    padding: 17px 14px;
+    border: 1px solid #dbe3eb;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 16px rgba(20, 40, 65, 0.1);
+}
+
+.funding-card h2 {
+    margin: 0;
+    color: #dfa124;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+}
+
+.funding-card p {
+    margin: 4px 0 15px;
+    color: #687892;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+}
+
+.funding-progress {
+    height: 5px;
+    overflow: hidden;
+    background-color: #e1e9f2;
+}
+
+.funding-progress span {
+    display: block;
+    height: 100%;
+    background-color: #3599e9;
+}
+
+.funding-card>strong {
+    display: block;
+    margin-top: 9px;
+    color: #20283a;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.funding-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 17px 0;
+    color: #687892;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.funding-stats span+span {
+    padding-left: 25px;
+    border-left: 1px solid #dbe3eb;
+}
+
+.funding-card input {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #dbe3eb;
+    border-radius: 5px;
+    color: #34425c;
+}
+
+.donate-button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #438fce;
+    color: #ffffff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.donate-message {
+    min-height: 18px;
+    margin: 8px 0 0 !important;
+    color: #29905a !important;
+    text-align: center;
+}
+
+.donate-message.is-error {
+    color: #e53935 !important;
+}
+
+.report-link {
+    display: block;
+    margin-top: 14px;
+    color: #e53935;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    text-align: center;
+}
+
+.comments-section {
+    padding: 30px 0;
+    background-color: #fbfbfb;
+}
+
+.comment-box {
+    padding: 15px;
+    border: 1px solid #dbe3eb;
+    border-radius: 9px;
+    background-color: #ffffff;
+}
+
+.comment-box textarea {
+    display: block;
+    width: 100%;
+    min-height: 95px;
+    padding: 12px;
+    resize: vertical;
+    border: 1px solid #dbe3eb;
+    border-radius: 6px;
+    background-color: #f2f6f9;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.comment-box button {
+    display: block;
+    margin: 10px 0 0 auto;
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #278fe4;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.comment {
+    padding: 18px 0;
+    border-bottom: 1px solid #edf0f3;
+    color: #20283a;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.comment small {
+    display: block;
+    margin-top: 4px;
+    color: #8a9bb5;
+}
+
+.comment p {
+    margin: 10px 0 0;
+}
+
+.similar-section {
+    padding: 35px 0 70px;
+}
+
+.similar-section>.details-container>p {
+    margin: -10px 0 18px;
+    color: #8a9bb5;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+}
+
+.similar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.similar-card {
+    overflow: hidden;
+    border: 1px solid #dbe3eb;
+    border-radius: 9px;
+    background-color: #ffffff;
+}
+
+.similar-card a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.similar-card>a>img {
+    display: block;
+    width: 100%;
+    height: 103px;
+    object-fit: cover;
+}
+
+.similar-card-content {
+    padding: 12px 10px;
+}
+
+.similar-card-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #687892;
+    font-size: 9px;
+}
+
+.similar-card h3 {
+    min-height: 30px;
+    margin: 16px 0 5px;
+    color: #20283a;
+    font-size: 11px;
+}
+
+.similar-card p {
+    min-height: 28px;
+    margin: 0 0 14px;
+    color: #687892;
+    font-size: 9px;
+}
+
+.similar-card .project-progress {
+    width: 100%;
+    height: 5px;
+    overflow: hidden;
+    background-color: #e1e9f2;
+}
+
+.similar-card .project-progress span {
+    display: block;
+    height: 100%;
+    background-color: #3599e9;
+}
+
+.similar-card-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 7px;
+    color: #687892;
+    font-size: 9px;
+}
+
+.similar-card-footer strong {
+    color: #20283a;
+}
+
+.project-not-found {
+    min-height: 400px;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.project-not-found h1 {
+    color: #172033;
+}
+
+.project-not-found a {
+    color: #438fce;
+}
+
+@media (max-width: 800px) {
+    .details-container {
+        width: min(100% - 35px, 650px);
+    }
+
+    .details-layout {
+        grid-template-columns: 1fr;
+        padding: 25px 0 0;
+    }
+
+    .details-cover {
+        height: 230px;
+    }
+
+    .similar-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .details-title {
+        font-size: 21px;
+    }
+
+    .details-cover {
+        height: 190px;
+    }
+
+    .project-dates {
+        gap: 12px;
+    }
+
+    .project-dates span {
+        width: 100%;
+    }
+}

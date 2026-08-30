@@ -1,0 +1,126 @@
+.hero-section {
+    position: relative;
+    height: calc(100vh - 50px);
+    width: 100%;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+
+    /*
+       الصورة تملأ مساحة السلايدر بالكامل
+       بدون فراغات جانبية.
+    */
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f9f9f9;
+
+    opacity: 0;
+    transform: none;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.slide.active {
+    z-index: 2;
+    opacity: 1;
+    transform: none;
+}
+
+/* =========================================================
+   Hero Text Positioning
+========================================================= */
+
+.hero-title {
+    position: absolute;
+    z-index: 3;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 40px;
+    font-weight: normal;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   Slide 1 - Top Left
+========================================================= */
+
+.slide-1 .hero-title {
+    top: 40px;
+    left: 40px;
+    max-width: 650px;
+    color: #111111;
+    font-size: 42px;
+    text-align: left;
+}
+
+
+/* =========================================================
+   Slide 2 - Center Left
+========================================================= */
+
+.slide-2 .hero-title {
+    top: 50%;
+    left: 20px;
+    width: min(600px, 45%);
+    color: #111111;
+    font-size: 38px;
+    text-align: left;
+    transform: translateY(-50%);
+}
+
+
+/* =========================================================
+   Slide 3 - Bottom Center
+========================================================= */
+
+.slide-3 .hero-title {
+    bottom: 55px;
+    left: 50%;
+    width: min(700px, 85%);
+    color: #ffffff;
+    font-size: 38px;
+    text-align: center;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    transform: translateX(-50%);
+}
+
+/* النقاط الخاصة بالسلايدر (Dots) */
+.slider-dots {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: #000;
+}

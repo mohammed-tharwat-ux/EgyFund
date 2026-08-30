@@ -1,0 +1,31 @@
+/* =========================================
+   GLOBAL RESET
+   ========================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+/* Remove browser default spacing */
+
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Prevent horizontal overflow */
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+}

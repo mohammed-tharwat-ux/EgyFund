@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-
+from django.db.models import Sum, Avg
 
 class Category(models.Model):
     name = models.CharField(
@@ -23,6 +23,29 @@ class Tag(models.Model):
 
 
 class Project(models.Model):
+    @property
+    def total_donations(self):
+        if hasattr(self, 'donations'):
+            total = self.donations.aggregate(total=Sum('amount'))['total']
+            return total if total else 0
+        if hasattr(self, 'donation_set'):
+            total = self.donation_set.aggregate(total=Sum('amount'))['total']
+            return total if total else 0
+        return 0
+
+    @property
+    def average_rating(self):
+        # Calculates the math average of all 1-5 star ratings
+        avg = self.ratings.aggregate(avg=Avg('rating'))['avg']
+        return round(avg, 1) if avg else 0
+
+    @property
+    def can_be_cancelled(self):
+        # The 25% Rule: Returns True if current funding is strictly less than 25%
+        if self.target_amount == 0:
+            return False
+        funding_ratio = (self.total_donations / self.target_amount) * 100
+        return funding_ratio < 25
     class Status(models.TextChoices):
         DRAFT = "DRAFT", "Draft"
         RUNNING = "RUNNING", "Running"

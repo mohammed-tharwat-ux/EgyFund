@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Project | EgyFund</title>
+
+    <link rel="icon" type="image/svg+xml" href="{% static 'assets/icons/logo_transparent.svg' %}">
+    <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/create-project.css' %}">
+</head>
+<body class="auth-home-page create-project-page">
+
+    <header class="site-header"><div class="container header-container"><a href="/">← Back to Home</a></div></header>
+
+    <main class="create-project-main">
+        <div class="create-project-heading">
+            <h1>Start a New Campaign</h1>
+            <p>Fill in the details below to launch your crowdfunding project in Egypt.</p>
+        </div>
+
+        <form class="campaign-form" id="campaign-form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <section class="form-section">
+                <h2>Project Details</h2>
+
+                <div class="form-field full-width">
+                    <label for="campaign-title">Campaign Title</label>
+                    <input id="campaign-title" name="title" type="text" placeholder="Enter campaign title" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="campaign-category">Category</label>
+                        <select id="campaign-category" name="category" required>
+                            <option value="">Select category</option>
+                            <option value="education">Education</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="technology">Technology</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="campaign-tags">Tags (separated by commas)</label>
+                        <input id="campaign-tags" name="tags" type="text" placeholder="Add tags">
+                    </div>
+                </div>
+
+                <div class="form-field full-width">
+                    <label for="campaign-description">Project Description</label>
+                    <textarea id="campaign-description" name="description" rows="5" required></textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Funding Goals &amp; Timeline</h2>
+                <div class="form-row funding-row">
+                    <div class="form-field">
+                        <label for="target-amount">Total Target Amount (EGP)</label>
+                        <div class="amount-input">
+                            <span>EGP</span>
+                            <input id="target-amount" name="amount" type="number" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="start-date">Start Date</label>
+                        <input id="start-date" name="startDate" type="date" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="end-date">End Date</label>
+                        <input id="end-date" name="endDate" type="date" required>
+                    </div>
+                </div>
+            </section>
+
+            <div class="form-actions">
+                <button type="submit" class="launch-button">Launch Campaign</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

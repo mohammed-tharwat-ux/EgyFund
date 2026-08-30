@@ -1,0 +1,119 @@
+.go-fund-page {
+    min-height: 100vh;
+    background-color: #f8f8f8;
+}
+
+.go-fund-main {
+    min-height: 435px;
+    padding: 58px 20px 78px;
+}
+
+.go-fund-options {
+    display: flex;
+    justify-content: center;
+    gap: 88px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.funding-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 270px;
+    min-height: 250px;
+    padding: 16px 18px 14px;
+
+    border: 1.5px solid #efa51d;
+    border-radius: 40px;
+
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.funding-option:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(72, 62, 42, 0.12);
+}
+
+.funding-option-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 145px;
+    height: 125px;
+    margin-bottom: 6px;
+}
+
+.funding-option-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.funding-option h1 {
+    margin: 0;
+    color: #050505;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.option-arrows {
+    display: block;
+    margin-top: 16px;
+    color: #e5ad45;
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -7px;
+    line-height: 1;
+}
+
+.funding-option:hover .option-arrows {
+    color: #d58c11;
+    transform: translateX(4px);
+}
+
+.go-fund-page .site-footer {
+    background-color: #ffffff;
+}
+
+@media (max-width: 760px) {
+    .go-fund-main {
+        min-height: auto;
+        padding: 42px 20px 60px;
+    }
+
+    .go-fund-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 35px;
+    }
+
+    .funding-option {
+        width: min(270px, 100%);
+    }
+}
+
+@media (max-width: 400px) {
+    .funding-option {
+        min-height: 235px;
+        border-radius: 32px;
+    }
+
+    .funding-option h1 {
+        font-size: 20px;
+    }
+}

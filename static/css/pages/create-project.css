@@ -1,0 +1,306 @@
+.create-project-page {
+    background-color: #f6f8fa;
+}
+
+.create-project-main {
+    width: min(100% - 96px, 1220px);
+    margin: 0 auto;
+    padding: 34px 0 55px;
+}
+
+.create-project-heading {
+    margin-bottom: 24px;
+}
+
+.create-project-heading h1 {
+    margin: 0 0 5px;
+    color: #172033;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.create-project-heading p {
+    margin: 0;
+    color: #71809a;
+    font-size: 10px;
+}
+
+.campaign-form {
+    padding: 25px 23px 22px;
+    border: 1px solid #dce5ed;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 7px rgba(30, 50, 75, 0.03);
+}
+
+.form-section {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #dce5ed;
+}
+
+.form-section+.form-section {
+    padding-top: 25px;
+}
+
+.form-section h2 {
+    position: relative;
+    margin: 0 0 19px;
+    padding-bottom: 8px;
+    color: #172033;
+    font-size: 14px;
+}
+
+.form-section h2::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: #e9b249;
+    content: "";
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.funding-row {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.form-field {
+    min-width: 0;
+    margin-bottom: 15px;
+}
+
+.form-field.full-width {
+    width: 100%;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 7px;
+    color: #34425c;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid #dce5ed;
+    border-radius: 5px;
+    outline: none;
+    background-color: #f7f9fb;
+    color: #34425c;
+    font-family: inherit;
+    font-size: 10px;
+}
+
+.form-field input,
+.form-field select {
+    height: 36px;
+    padding: 0 10px;
+}
+
+.form-field textarea {
+    min-height: 90px;
+    padding: 12px 10px;
+    resize: vertical;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-color: #438fce;
+    background-color: #ffffff;
+}
+
+.amount-input {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    overflow: hidden;
+    border: 1px solid #dce5ed;
+    border-radius: 5px;
+    background-color: #f7f9fb;
+}
+
+.amount-input span {
+    padding: 0 9px;
+    color: #34425c;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.amount-input input {
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+.media-section {
+    border-bottom: 0;
+}
+
+.upload-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 112px;
+    padding: 15px;
+
+    border: 1px dashed #cbd8e5;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    color: #438fce;
+    text-align: center;
+    cursor: pointer;
+}
+
+.upload-icon {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: #71809a;
+    font-size: 22px;
+}
+
+.upload-box strong {
+    font-size: 10px;
+}
+
+.upload-box small {
+    margin-top: 5px;
+    color: #71809a;
+    font-size: 8px;
+}
+
+.image-preview-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.image-preview {
+    position: relative;
+    height: 75px;
+    overflow: hidden;
+    border-radius: 6px;
+    background-color: #f1f4f7;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-image {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: #20283a;
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 3px;
+}
+
+.form-actions button {
+    min-width: 105px;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.draft-button {
+    border: 1px solid #20283a;
+    background-color: #ffffff;
+    color: #20283a;
+}
+
+.launch-button {
+    border: 1px solid #000000;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.form-message {
+    margin: 14px 0 0;
+    color: #29905a;
+    font-size: 10px;
+    text-align: right;
+}
+
+.form-message.is-error {
+    color: #e53935;
+}
+
+@media (max-width: 800px) {
+    .create-project-main {
+        width: min(100% - 40px, 650px);
+    }
+
+    .funding-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .image-preview-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .create-project-main {
+        width: min(100% - 30px, 500px);
+        padding-top: 25px;
+    }
+
+    .campaign-form {
+        padding: 18px 14px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .image-preview-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-actions {
+        justify-content: stretch;
+    }
+
+    .form-actions button {
+        flex: 1;
+    }
+}

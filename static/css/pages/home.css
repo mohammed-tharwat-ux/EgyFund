@@ -1,0 +1,347 @@
+.projects-section {
+    padding: 60px 0;
+    background-color: #fff;
+}
+
+.section-header {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 32px;
+
+    font-family: 'Georgia', serif;
+
+    color: #111;
+
+    margin: 0 0 10px;
+
+    font-weight: normal;
+}
+
+.title-underline {
+    width: 300px;
+    height: 3px;
+
+    background-color: #E2AC31;
+}
+
+/* =========================
+   Top-Rated Active Projects
+========================== */
+
+.top-projects-section {
+    padding: 58px 0 80px;
+    background-color: #ffffff;
+}
+
+.section-heading {
+    margin-bottom: 22px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: #252b3b;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.heading-line {
+    display: block;
+    width: 330px;
+    height: 2px;
+    margin-top: 17px;
+    background-color: #E2AC31;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    align-items: stretch;
+}
+
+/* =========================
+   Project Card
+========================== */
+
+/* =========================
+   Project Card
+========================== */
+
+.project-card {
+    box-sizing: border-box;
+    min-width: 0;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background-color: #ffffff;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.project-card:hover {
+    border-color: #e2ac31;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(33, 52, 78, 0.1);
+}
+
+.project-card-link {
+    display: block;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.project-image-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.project-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.04);
+}
+
+
+.project-content {
+    padding: 17px 11px 14px;
+}
+
+.project-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    color: #66758d;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+
+.project-title {
+    min-height: 34px;
+    margin: 0 0 5px;
+    color: #20283a;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.project-description {
+    min-height: 35px;
+    margin: 0 0 19px;
+    color: #687892;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.project-progress {
+    width: 100%;
+    height: 5px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #e1e9f2;
+}
+
+.project-progress span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background-color: #438fce;
+}
+
+.project-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+    color: #687892;
+    font-size: 10px;
+}
+
+.project-footer strong {
+    color: #20283a;
+    font-weight: 800;
+}
+
+/* =========================
+   All Projects Card
+========================== */
+
+.all-projects-card {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-height: 292px;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    background-color: #ffffff;
+    color: #438fce;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    text-decoration: none;
+    transition:
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.all-projects-card:hover {
+    border-color: #e2ac31;
+    transform: translateY(-4px);
+    background-color: #f7fbff;
+    box-shadow: 0 8px 24px rgba(33, 52, 78, 0.08);
+}
+
+.all-projects-arrow {
+    color: #e9a925;
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+}
+
+/* =========================
+   Responsive Projects Grid
+========================== */
+
+@media (max-width: 900px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 580px) {
+    .top-projects-section {
+        padding: 40px 0 55px;
+    }
+
+    .section-heading h2 {
+        font-size: 24px;
+    }
+
+    .heading-line {
+        width: 220px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .project-image-wrapper {
+        height: 180px;
+    }
+
+    .all-projects-card {
+        min-height: 150px;
+        font-size: 24px;
+    }
+}
+
+/* =========================
+   Project Meta Row
+========================== */
+
+.project-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 25px;
+    margin-bottom: 14px;
+}
+
+.project-category {
+    display: inline-flex;
+    align-items: center;
+    min-height: 25px;
+    padding: 0 8px;
+    border-radius: 5px;
+    background-color: #f5f7fa;
+    color: #687892;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.project-amount {
+    margin-left: auto;
+    color: #687892;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   Project Favorite
+========================================================= */
+
+.project-favorite {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    height: 28px;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #687892;
+    font: inherit;
+    cursor: pointer;
+}
+
+.favorite-count {
+    display: inline-block;
+    color: #687892;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.project-favorite svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+    fill: transparent;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
+.project-favorite:hover {
+    transform: scale(1.04);
+}
+
+.project-favorite.is-favorite {
+    color: #e53935;
+}
+
+.project-favorite.is-favorite .favorite-count {
+    color: #e53935;
+}
+
+.project-favorite.is-favorite svg {
+    fill: #e53935;
+    stroke: #e53935;
+}

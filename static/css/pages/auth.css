@@ -1,0 +1,607 @@
+/* =========================================================
+   Register Page
+========================================================= */
+
+.auth-body {
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f7f9fc;
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: 40px 20px;
+}
+
+.auth-card {
+    box-sizing: border-box;
+    width: min(100%, 540px);
+    padding: 35px 32px 30px;
+    border: 1px solid #e0e6ef;
+    border-radius: 13px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 22px rgba(36, 55, 80, 0.08);
+}
+
+.auth-header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.auth-header h1 {
+    margin: 0 0 8px;
+    color: #10182b;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.auth-header p {
+    margin: 0;
+    color: #E2AC31;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.name-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-field label {
+    color: #26334d;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.form-field input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #d9e1ec;
+    border-radius: 7px;
+    outline: none;
+    background-color: #ffffff;
+    color: #202b42;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field input::placeholder {
+    color: #8291a8;
+}
+
+.form-field input:focus {
+    border-color: #E2AC31;
+    box-shadow: 0 0 0 0.5px rgba(226, 172, 49, 0.14);
+}
+
+.form-field input.input-error {
+    border-color: #c94d4d;
+}
+
+.field-error {
+    min-height: 14px;
+    color: #c94d4d;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.register-button {
+    height: 41px;
+    margin-top: 1px;
+    border: 0;
+    border-radius: 7px;
+    background-color: #10182b;
+    color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background-color: #10182b;
+}
+
+.register-button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.register-message {
+    min-height: 16px;
+    margin: -5px 0 0;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    text-align: center;
+}
+
+.register-message.success {
+    color: #2c8156;
+}
+
+.register-message.error {
+    color: #c94d4d;
+}
+
+.terms-text {
+    margin: 3px 0 0;
+    color: #8190a7;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    text-align: center;
+}
+
+.terms-text a,
+.login-text a {
+    color: #E2AC31;
+    text-decoration: underline;
+}
+
+.auth-divider {
+    height: 1px;
+    margin: 18px 0 20px;
+    background-color: #e1e6ed;
+}
+
+.login-text {
+    margin: 0;
+    color: #8190a7;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-align: center;
+}
+
+.login-text a {
+    font-weight: 700;
+    text-decoration: none;
+}
+
+@media (max-width: 560px) {
+    .auth-card {
+        padding: 28px 20px 25px;
+    }
+
+    .name-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .auth-header h1 {
+        font-size: 24px;
+    }
+}
+
+/* =========================================================
+   Account Activation
+========================================================= */
+
+.activation-card {
+    width: min(100%, 465px);
+    padding: 38px 38px 36px;
+}
+
+.activation-card .auth-header {
+    margin-bottom: 28px;
+}
+
+.activation-card .auth-header h1 {
+    margin-bottom: 34px;
+    font-size: 29px;
+}
+
+.activation-description {
+    margin: 0;
+    color: #71809a !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.45;
+}
+
+.activation-description strong {
+    display: inline;
+    color: #71809a;
+    font: inherit;
+    font-weight: 400;
+}
+
+.activation-card .form-field {
+    gap: 7px;
+}
+
+.activation-card .form-field input {
+    height: 40px;
+}
+
+.resend-text {
+    margin: 6px 0 30px;
+    color: #71809a;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+    text-align: center;
+}
+
+.resend-button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #df9e26;
+    font: inherit;
+    cursor: pointer;
+}
+
+.resend-button:hover {
+    color: #df9e26;
+}
+
+.resend-button:disabled {
+    color: #9da8b8;
+    cursor: not-allowed;
+}
+
+.demo-code {
+    margin: -12px 0 0;
+    color: #df9e26;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    text-align: center;
+}
+
+@media (max-width: 560px) {
+    .activation-card {
+        padding: 30px 20px;
+    }
+
+    .activation-card .auth-header h1 {
+        font-size: 25px;
+    }
+}
+
+/* =========================================================
+   Login Modal
+========================================================= */
+
+.auth-modal[hidden] {
+    display: none;
+}
+
+.auth-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.auth-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(16, 24, 43, 0.32);
+    backdrop-filter: blur(3px);
+}
+
+.login-card {
+    position: relative;
+    z-index: 1;
+
+    box-sizing: border-box;
+    width: min(100%, 480px);
+    min-height: 500px;
+    max-height: 94vh;
+
+    padding: 34px 50px 28px;
+
+    overflow-y: auto;
+
+    border: 1px solid #dfe6ef;
+    border-radius: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 18px 55px rgba(16, 24, 43, 0.18);
+}
+
+
+.auth-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    background: transparent;
+    color: #7c8ba2;
+    font-size: 27px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.auth-modal-close:hover {
+    color: #20283a;
+}
+
+.login-card h1 {
+    margin: 0 0 27px;
+    color: #10182b;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 28px;
+    text-align: center;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.login-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.login-field label {
+    color: #26334d;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+}
+
+.login-field input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 39px;
+    padding: 0 12px;
+    border: 1px solid #d9e1ec;
+    border-radius: 7px;
+    outline: none;
+    color: #202b42;
+    font: 13px Arial, sans-serif;
+}
+
+.login-field input:focus {
+    box-shadow: 0 0 0 2px rgba(226, 172, 49, 0.14);
+}
+
+.login-field input.input-error {
+    border-color: #c94d4d;
+}
+
+.login-error {
+    min-height: 13px;
+    color: #c94d4d;
+    font: 11px Arial, sans-serif;
+}
+
+.forgot-password {
+    align-self: flex-end;
+    margin-top: -8px;
+    color: #df9e26;
+    font: 13px Georgia, "Times New Roman", serif;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-submit {
+    height: 44px;
+    margin-top: 6px;
+    border: 0;
+    border-radius: 7px;
+    background: #191919;
+    color: #ffffff;
+    font: 700 15px Georgia, "Times New Roman", serif;
+    cursor: pointer;
+}
+
+.login-submit:hover {
+    background: #191919;
+}
+
+.login-submit:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.login-message {
+    min-height: 16px;
+    margin: 0;
+    font: 12px Arial, sans-serif;
+    text-align: center;
+}
+
+.login-message.error {
+    color: #c94d4d;
+}
+
+.login-message.success {
+    color: #2c8156;
+}
+
+.social-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 29px 0 25px;
+    color: #71809a;
+    font: 13px Georgia, "Times New Roman", serif;
+}
+
+.social-divider span {
+    flex: 1;
+    height: 1px;
+    background: #dfe6ef;
+}
+
+.social-login-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.social-login-button {
+    display: grid;
+    width: 51px;
+    height: 51px;
+    place-items: center;
+    border: 1px solid #e2ac31;
+    border-radius: 10px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.social-login-button:hover {
+    background: #ffffff;
+}
+
+.google-icon {
+    color: #4285f4;
+    font: 700 32px Arial, sans-serif;
+}
+
+.x-icon {
+    color: #111111;
+    font: 400 29px Arial, sans-serif;
+}
+
+.facebook-icon {
+    color: #4267b2;
+    font: 700 38px Arial, sans-serif;
+}
+
+.login-bottom-line {
+    height: 1px;
+    margin: 34px 0 22px;
+    background: #dfe6ef;
+}
+
+.signup-text {
+    margin: 0;
+    color: #71809a;
+    font: 14px Georgia, "Times New Roman", serif;
+    text-align: center;
+}
+
+.signup-text a {
+    color: #df9e26;
+    text-decoration: none;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+body.login-modal-open {
+    overflow: hidden;
+}
+
+@media (max-width: 520px) {
+    .login-card {
+        padding: 30px 22px;
+    }
+}
+
+/* =========================================================
+   Forgot Password
+========================================================= */
+
+.forgot-password-card {
+    width: min(100%, 465px);
+    padding: 38px 38px 34px;
+}
+
+.back-to-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 52px;
+
+    color: #71809a;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.back-to-login:hover {
+    color: #df9e26;
+}
+
+.back-to-login span {
+    font-size: 19px;
+    line-height: 1;
+}
+
+.forgot-header {
+    margin-bottom: 52px;
+    text-align: left;
+}
+
+.forgot-header h1 {
+    margin-bottom: 12px;
+    font-size: 29px;
+    text-align: center;
+}
+
+.forgot-header p {
+    color: #71809a;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+}
+
+#forgot-password-form {
+    gap: 22px;
+}
+
+#forgot-password-form .register-button {
+    height: 47px;
+    margin-top: 18px;
+    background-color: #10182b;
+}
+
+#forgot-password-form .register-button:hover {
+    background-color: #1a2540;
+}
+
+@media (max-width: 560px) {
+    .forgot-password-card {
+        padding: 30px 22px 28px;
+    }
+
+    .back-to-login {
+        margin-bottom: 38px;
+    }
+
+    .forgot-header {
+        margin-bottom: 38px;
+    }
+
+    .forgot-header h1 {
+        font-size: 25px;
+    }
+}

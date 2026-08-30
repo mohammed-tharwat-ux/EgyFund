@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }} | EgyFund</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/icons/logo_transparent.svg' %}">
+    <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/project-details.css' %}">
+</head>
+<body class="auth-home-page details-page">
+
+    <!-- Navbar placeholder (use your homepage header here in production) -->
+    <header class="site-header"><div class="container header-container"><a href="/">← Back to Home</a></div></header>
+
+    <main id="project-details-content">
+        <section class="details-section">
+            <div class="details-container">
+                <div class="details-meta">
+                    <span>{{ project.category.name|upper }}</span>
+                    <b>By {{ project.owner.first_name|default:"EgyFund User" }}</b>
+                </div>
+
+                <h1 class="details-title">{{ project.title }}</h1>
+
+                <div class="details-cover">
+                    <img src="{% static 'assets/images/image-3.webp' %}" alt="{{ project.title }}">
+                </div>
+
+                <div class="details-layout">
+                    <article class="project-story">
+                        <h2>About the Project</h2>
+                        <p>{{ project.details }}</p>
+                        <div class="project-dates">
+                            <span>Start Date: <b>{{ project.start_at|date:"M d, Y" }}</b></span>
+                            <span>End Date: <b>{{ project.end_at|date:"M d, Y" }}</b></span>
+                        </div>
+                    </article>
+
+                    <aside class="funding-card">
+                        <h2>EGP {{ project.total_donations }}</h2>
+                        <p>pledged of <b>EGP {{ project.target_amount }}</b> target</p>
+
+                        <div class="funding-progress">
+                            <span style="width: 50%;"></span>
+                        </div>
+
+                        <input type="number" min="1" value="500" aria-label="Donation amount">
+                        <button type="button" class="donate-button">Donate Now</button>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section class="similar-section">
+            <div class="details-container">
+                <h2>Similar Projects</h2>
+                <div class="similar-grid">
+                    {% for sim in similar_projects %}
+                    <article class="similar-card">
+                        <a href="{% url 'projects:project_details' sim.id %}">
+                            <div class="similar-card-content">
+                                <h3>{{ sim.title }}</h3>
+                                <p>{{ sim.details|truncatechars:50 }}</p>
+                            </div>
+                        </a>
+                    </article>
+                    {% empty %}
+                        <p>No similar projects found in this category.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

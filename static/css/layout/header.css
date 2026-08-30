@@ -1,0 +1,947 @@
+.site-header {
+    background-color: #ffffff;
+    padding: 10px 0 0 0;
+    position: relative;
+}
+
+/* Container العام */
+.container {
+    width: 92%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* تنسيق الـ Header الخاص مع Flex */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* باقي أكواد الهيدر الثابتة لديك... */
+
+.logo a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    /* المسافة بين الشعارين إذا أردت */
+}
+
+/* تنسيق الصورة الأولى (الأيقونة أو الشكل) */
+.logo-img-icon {
+    height: 35px;
+    /* يمكنك تعديل الطول حسب مقاسات صورتك الحقيقية */
+    width: auto;
+    object-fit: contain;
+}
+
+/* تنسيق الصورة الثانية (النصوص أو الجزء الثاني من اللوجو) */
+.logo-img-text {
+    height: 45px;
+    /* تحكم في الارتفاع لتتطابق بشكل بصري مع الأيقونة */
+    width: auto;
+    object-fit: contain;
+    margin-left: -60px;
+}
+
+
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #222;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.search-bar {
+    position: relative;
+    width: 320px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: #f1f1f1;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-start {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ...existing code... */
+
+.site-header .btn-signin {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.btn-signin {
+    text-decoration: none;
+    background-color: #0b1329;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.site-header .btn-signin:hover {
+    cursor: pointer;
+}
+
+
+.site-header .btn-signin:focus {
+    outline: none;
+}
+
+
+
+.header-border {
+    height: 2px;
+    background-color: #DFA124;
+    /* اللون الذهبي الموجود أسفل الهيدر في التصميم */
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* =========================================================
+   Projects Navigation
+========================================================= */
+
+.main-navigation {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.main-navigation .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 8px 0;
+
+    border: none;
+    background: transparent;
+
+    color: #26334d;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.main-navigation .nav-link:hover {
+    color: #df9e26;
+}
+
+.main-navigation .nav-link:focus {
+    outline: none;
+}
+
+.projects-navigation {
+    position: relative;
+}
+
+.projects-toggle {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.projects-arrow {
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.projects-navigation.is-open .projects-arrow {
+    transform: rotate(180deg);
+}
+
+/* إخفاء القائمة عند غلقها */
+.projects-dropdown[hidden] {
+    display: none;
+}
+
+/* مربع القائمة */
+.projects-dropdown {
+    position: absolute;
+    top: calc(100% + 16px);
+    left: 50%;
+    z-index: 1000;
+
+    display: block;
+    width: 270px;
+    padding: 18px 22px;
+
+    /*
+     * هذه هي قيمة تحريك المربع ناحية اليمين.
+     * غيّري 80px فقط.
+     */
+    transform: translateX(calc(-50% + 80px));
+
+    border: 1px solid #71809a;
+    border-radius: 28px;
+
+    background-color: #ffffff;
+    box-shadow: 0 10px 24px rgba(16, 24, 43, 0.16);
+}
+
+/* المثلث العلوي */
+.projects-dropdown::before {
+    position: absolute;
+    top: -11px;
+    left: 38px;
+
+    width: 20px;
+    height: 20px;
+
+    content: "";
+
+    transform: rotate(45deg);
+
+    border-top: 1px solid #71809a;
+    border-left: 1px solid #71809a;
+
+    background-color: #ffffff;
+}
+
+.projects-dropdown a {
+    display: block;
+
+    padding: 10px 0;
+
+    color: #10182b;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.projects-dropdown a:hover {
+    color: #df9e26;
+}
+
+.projects-dropdown a+a {
+    margin-top: 3px;
+}
+
+/* الشاشات الصغيرة */
+@media (max-width: 700px) {
+    .main-navigation {
+        gap: 20px;
+    }
+
+    .projects-dropdown {
+        left: 0;
+        transform: translateX(0);
+    }
+
+    .projects-dropdown::before {
+        left: 28px;
+    }
+}
+
+
+
+/* =========================================================
+   Categories Navigation
+========================================================= */
+
+.categories-navigation {
+    position: relative;
+}
+
+.categories-toggle {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.categories-arrow {
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.categories-navigation.is-open .categories-arrow {
+    transform: rotate(180deg);
+}
+
+.categories-dropdown[hidden] {
+    display: none;
+}
+
+/* المربع الخارجي */
+.categories-dropdown {
+    position: absolute;
+    top: calc(100% + 16px);
+    left: 50%;
+    z-index: 1000;
+
+    box-sizing: border-box;
+    width: 245px;
+    padding: 18px 20px;
+
+    overflow: visible;
+
+    transform: translateX(-50%);
+
+    border: 1px solid #71809a;
+    border-radius: 38px;
+
+    background-color: #ffffff;
+    box-shadow: 0 10px 24px rgba(16, 24, 43, 0.16);
+}
+
+/* المثلث الخارج من أعلى المربع */
+.categories-dropdown::before {
+    position: absolute;
+    top: -11px;
+    left: 110px;
+    z-index: -1;
+
+    width: 20px;
+    height: 20px;
+
+    content: "";
+
+    transform: rotate(45deg);
+
+    border-top: 1px solid #71809a;
+    border-left: 1px solid #71809a;
+
+    background-color: #ffffff;
+}
+
+/* الجزء الداخلي هو الذي يحتوي على الـ Scroll */
+.categories-dropdown-content {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* روابط التصنيفات */
+.categories-dropdown a {
+    display: block;
+
+    padding: 7px 0;
+
+    color: #10182b;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    line-height: 1.25;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.categories-dropdown a:hover {
+    color: #df9e26;
+}
+
+/* شكل الـ Scrollbar */
+.categories-dropdown-content {
+    scrollbar-width: thin;
+    scrollbar-color: #777777 transparent;
+}
+
+.categories-dropdown-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.categories-dropdown-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.categories-dropdown-content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #777777;
+}
+
+.categories-dropdown-content::-webkit-scrollbar-thumb:hover {
+    background-color: #555555;
+}
+
+/* الشاشات الصغيرة */
+@media (max-width: 700px) {
+    .categories-dropdown {
+        left: 0;
+        transform: translateX(0);
+    }
+
+    .categories-dropdown::before {
+        left: 28px;
+    }
+}
+
+/* =========================================================
+   Authenticated Home Header - Final
+========================================================= */
+
+.auth-home-page .site-header {
+    position: relative;
+    z-index: 1000;
+
+    /* min-height: 50px; */
+    padding: 0;
+
+    /* border-bottom: 1px solid #e99a16; */
+    background-color: #ffffff;
+}
+
+.auth-home-page .header-container {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    min-height: 50px;
+    margin-top: 10px;
+}
+
+/* =========================
+   Navigation
+========================= */
+
+.auth-home-page .main-navigation {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+    margin-left: 70px;
+}
+
+.auth-home-page .main-navigation .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 0;
+
+    border: 0;
+    background: transparent;
+
+    color: #26334d;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.auth-home-page .main-navigation .nav-link:hover {
+    color: #df9e26;
+}
+
+/* حتى لا تتعارض القوائم مع بعضها */
+.auth-home-page .projects-navigation,
+.auth-home-page .categories-navigation {
+    position: relative;
+    z-index: 2000;
+}
+
+/* =========================
+   Search
+========================= */
+
+.auth-home-page .auth-search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 410px;
+    height: 38px;
+    margin-left: auto;
+    padding: 0 14px 0 18px;
+
+    border-radius: 22px;
+
+    background-color: #f1f1f1;
+    color: #71809a;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.auth-home-page .auth-search-bar:hover {
+    background-color: #eeeeee;
+    box-shadow: none;
+    transform: none;
+}
+
+.auth-home-page .auth-search-icon {
+    display: grid;
+    place-items: center;
+
+    width: 25px;
+    height: 25px;
+
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+.auth-home-page .auth-search-icon img {
+    display: block;
+
+    width: 17px;
+    height: 17px;
+
+    object-fit: contain;
+}
+
+/* =========================
+   User Area
+========================= */
+
+.auth-home-page .user-navigation {
+    position: relative;
+    z-index: 5000;
+
+    flex: 0 0 auto;
+    margin-left: 42px;
+}
+
+.auth-home-page .user-navigation-toggle {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    cursor: pointer;
+}
+
+/* دائرة المستخدم */
+.auth-home-page .user-avatar {
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 58px;
+
+    width: 58px;
+    height: 58px;
+
+    overflow: hidden;
+
+    border: 1.5px solid #e99a16;
+    border-radius: 50%;
+
+    background-color: #ffffff;
+}
+
+/* صورة المستخدم */
+.auth-home-page .user-avatar img,
+.auth-home-page .user-avatar svg {
+    display: block;
+
+    width: 43px !important;
+    height: 43px !important;
+
+    object-fit: contain;
+}
+
+/* اسم المستخدم */
+.auth-home-page .user-name {
+    color: #34425c;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    white-space: nowrap;
+}
+
+/* السهم */
+.auth-home-page .user-chevron {
+    display: grid;
+    place-items: center;
+
+    width: 25px;
+    height: 25px;
+    margin-left: 8px;
+
+    transform: none;
+}
+
+/* صورة السهم */
+.auth-home-page .user-chevron img {
+    display: block;
+
+    width: 22px !important;
+    height: 22px !important;
+
+    object-fit: contain;
+    transform: rotate(90deg);
+
+    transition: transform 0.2s ease;
+}
+
+/* دوران السهم عند فتح القائمة */
+.auth-home-page .user-navigation.is-open .user-chevron img {
+    transform: rotate(360deg);
+}
+
+/* =========================
+   User Dropdown
+========================= */
+
+.auth-home-page #user-navigation-menu {
+    position: absolute;
+    top: calc(100% + 28px);
+    right: 0;
+    left: auto;
+    z-index: 6000;
+
+    width: 235px;
+    padding: 20px 24px;
+
+    border: 1px solid #71809a;
+    border-radius: 38px;
+
+    background-color: #ffffff;
+    box-shadow: 3px 4px 0 rgba(224, 174, 42, 0.28);
+}
+
+/* إخفاء القائمة فعليًا */
+.auth-home-page #user-navigation-menu[hidden],
+.auth-home-page #projects-menu[hidden],
+.auth-home-page #categories-menu[hidden] {
+    display: none !important;
+}
+
+
+
+/* =========================
+   User Menu Items
+========================= */
+
+.auth-home-page #user-navigation-menu .user-menu-item {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    width: 100%;
+    min-height: 45px;
+    padding: 5px 0;
+
+    border: 0;
+    background: transparent;
+
+    color: #10182b;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    line-height: 1.2;
+    text-align: left;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.auth-home-page #user-navigation-menu .user-menu-item:hover {
+    color: #df9e26;
+    transform: none;
+    box-shadow: none;
+}
+
+/* مساحة الأيقونة */
+.auth-home-page #user-navigation-menu .user-menu-icon {
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 28px;
+
+    width: 28px;
+    height: 30px;
+}
+
+/* صور الأيقونات */
+.auth-home-page #user-navigation-menu .user-menu-icon img {
+    display: block;
+
+    width: 27px !important;
+    height: 27px !important;
+
+    object-fit: contain;
+}
+
+/* نص العنصر */
+.auth-home-page #user-navigation-menu .user-menu-text {
+    display: block;
+    flex: 1;
+
+    color: inherit;
+    white-space: nowrap;
+}
+
+/* الخط الفاصل */
+.auth-home-page #user-navigation-menu .user-menu-divider {
+    height: 1px;
+    margin: 10px 0;
+
+    background-color: #71809a;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1000px) {
+    .auth-home-page .main-navigation {
+        gap: 18px;
+        margin-left: 25px;
+    }
+
+    .auth-home-page .auth-search-bar {
+        width: 260px;
+        margin-left: 25px;
+    }
+
+    .auth-home-page .user-navigation {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 700px) {
+    .auth-home-page .main-navigation {
+        gap: 12px;
+        margin-left: 15px;
+    }
+
+    .auth-home-page .auth-search-bar {
+        width: 190px;
+    }
+
+    .auth-home-page .user-name {
+        font-size: 18px;
+    }
+
+    .auth-home-page #user-navigation-menu {
+        right: 0;
+    }
+}
+
+/* =========================================================
+   User Menu Pointer
+========================================================= */
+
+/* القائمة نفسها */
+.auth-home-page #user-navigation-menu {
+    overflow: visible;
+}
+
+/* المثلث المتصل بأعلى القائمة */
+.auth-home-page #user-navigation-menu::before {
+    position: absolute;
+    top: -10px;
+    right: 25px;
+    z-index: 2;
+
+    width: 18px;
+    height: 18px;
+
+    content: "";
+
+    transform: rotate(45deg);
+
+    border-top: 1px solid #71809a;
+    border-left: 1px solid #71809a;
+
+    background-color: #ffffff;
+}
+
+/* تغطية الجزء السفلي من المثلث حتى يظهر متصلًا بالمربع */
+.auth-home-page #user-navigation-menu::after {
+    position: absolute;
+    top: 0;
+    right: 24px;
+    z-index: 3;
+
+    width: 20px;
+    height: 5px;
+
+    content: "";
+
+    background-color: #ffffff;
+}
+
+/* =========================================================
+   Authenticated Categories Dropdown
+========================================================= */
+
+.auth-home-page .categories-navigation {
+    position: relative;
+    z-index: 4000;
+}
+
+.auth-home-page .categories-dropdown {
+    position: absolute;
+    top: calc(100% + 16px);
+    left: 50%;
+    z-index: 5000;
+
+    display: block;
+    box-sizing: border-box;
+
+    width: 245px;
+    padding: 18px 20px;
+
+    border: 1px solid #71809a;
+    border-radius: 38px;
+
+    background-color: #ffffff;
+    box-shadow: 3px 4px 0 rgba(224, 174, 42, 0.28);
+
+    transform: translateX(-50%);
+}
+
+.auth-home-page .categories-dropdown[hidden] {
+    display: none !important;
+}
+
+.auth-home-page .categories-dropdown::before {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    z-index: 0;
+
+    width: 18px;
+    height: 18px;
+
+    content: "";
+
+    transform: translateX(-50%) rotate(45deg);
+
+    border-top: 1px solid #71809a;
+    border-left: 1px solid #71809a;
+
+    background-color: #ffffff;
+}
+
+.auth-home-page .categories-dropdown-content {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.auth-home-page .categories-dropdown-content a {
+    display: block;
+    box-sizing: border-box;
+
+    width: 100%;
+    padding: 9px 10px;
+
+    border: 0;
+    outline: 0;
+
+    background-color: transparent;
+
+    color: #10182b;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.25;
+    text-align: left;
+    text-decoration: none;
+}
+
+.auth-home-page .categories-dropdown-content a:hover {
+    background-color: #fff8e8;
+    color: #df9e26;
+    text-decoration: none;
+}
+
+/* إزالة الشكل الافتراضي لزر Categories بعد تسجيل الدخول */
+.auth-home-page button.categories-toggle {
+    appearance: none;
+    -webkit-appearance: none;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    width: auto;
+    min-width: 0;
+    height: auto;
+    margin: 0;
+    padding: 8px 0;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: #26334d;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.auth-home-page button.categories-toggle:hover {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #df9e26;
+    box-shadow: none;
+}
+
+.auth-home-page button.categories-toggle:focus,
+.auth-home-page button.categories-toggle:active {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.auth-home-page .categories-arrow {
+    display: inline-block;
+
+    font-size: 12px;
+    line-height: 1;
+}
