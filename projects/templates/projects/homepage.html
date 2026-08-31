@@ -1,15 +1,11 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EgyFund | Home</title>
-
+    <title>EgyFund</title>
     <link rel="icon" type="image/png" href="{% static 'assets/icons/logo_transparent.svg' %}">
-
-    <!-- Base CSS -->
     <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/pages/auth.css' %}">
     <link rel="stylesheet" href="{% static 'css/layout/header.css' %}">
@@ -19,138 +15,210 @@
     <link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/featured-projects.css' %}">
 </head>
-
 <body>
 
     <header class="site-header">
         <div class="container header-container">
-            <!-- Logo -->
             <div class="logo">
-                <a href="/">
+                <a href="{% url 'projects:homepage' %}">
                     <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund Icon" class="logo-img-icon">
                     <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund Text" class="logo-img-text">
                 </a>
             </div>
 
-            <!-- Navigation -->
             <nav class="main-navigation" aria-label="Main navigation">
+                <a href="#footer" class="nav-link">About Us</a>
                 <div class="projects-navigation">
                     <button type="button" class="nav-link projects-toggle" id="projects-toggle" aria-expanded="false" aria-controls="projects-menu">
                         Projects <span class="projects-arrow" aria-hidden="true">▾</span>
                     </button>
-                    <!-- Missing Dropdown Menu Added Here -->
                     <div id="projects-menu" class="projects-dropdown" hidden>
-                        <a href="#" class="project-menu-item">All Projects</a>
+                        <a href="{% url 'projects:all_projects' %}" class="project-menu-item" data-project-target="all-projects">All Projects</a>
+                        <a href="#top-rated-projects" class="project-menu-item" data-project-target="top-rated-projects">Top-Rated Active Projects</a>
+                        <a href="#recent-projects" class="project-menu-item" data-project-target="recent-projects">Recently Added Projects</a>
+                        <a href="#featured-projects" class="project-menu-item" data-project-target="featured-projects">Featured Projects</a>
                     </div>
                 </div>
 
-                <!-- DYNAMIC CATEGORIES LOOP -->
                 <div class="categories-navigation">
                     <button type="button" class="nav-link categories-toggle" id="categories-toggle" aria-expanded="false" aria-controls="categories-menu">
                         Categories <span class="categories-arrow" aria-hidden="true">▾</span>
                     </button>
                     <div id="categories-menu" class="categories-dropdown" hidden>
                         <div class="categories-dropdown-content">
-                            {% for cat in categories %}
-                                <a href="{% url 'projects:category_projects' cat.id %}">{{ cat.name }}</a>
+                            {% for category in categories %}
+                            <a href="{% url 'projects:category_projects' category.id %}" data-category="{{ category.name|lower }}">
+                                {{ category.name }}
+                            </a>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
             </nav>
 
-            <div class="header-actions">
-                {% if user.is_authenticated %}
-                    <!-- Sarah's Authenticated User Menu -->
-                    <div class="user-navigation">
-                        <button type="button" class="user-navigation-toggle" id="user-navigation-toggle" aria-expanded="false" aria-controls="user-navigation-menu">
-                            <span class="user-avatar">
-                                <img src="{% static 'assets/icons/profile-icon-white-bg.svg' %}" alt="User profile">
-                            </span>
-                            <span class="user-name" id="header-user-name">
-                                {{ user.first_name|default:user.email }}
-                            </span>
-                            <span class="user-chevron" aria-hidden="true">▾</span>
-                        </button>
+            <form class="search-bar" id="home-search" role="search" action="{% url 'projects:search_projects' %}" method="GET">
+                <input type="text" name="q" placeholder="Try searching titles and tags" aria-label="Search projects" required>
+                <button type="submit" class="search-btn" aria-label="Open search page" style="background:none; border:none; color:inherit; cursor:pointer;">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 1 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0"></path>
+                    </svg>
+                </button>
+            </form>
 
-                        <div class="user-navigation-menu" id="user-navigation-menu" hidden>
-                            <a href="{% url 'users:profile' %}" class="user-menu-item">
-                                <span class="user-menu-text">My Profile</span>
-                            </a>
-                            <div class="user-menu-divider" aria-hidden="true"></div>
-                            
-                            <!-- Django Secure Logout -->
-                            <form method="post" action="{% url 'users:logout' %}" style="margin: 0;">
-                                {% csrf_token %}
-                                <button type="submit" class="user-menu-item user-logout" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer;">
-                                    <span class="user-menu-text">Log out</span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+            <div class="header-actions">
+                <a href="{% url 'projects:go_fund' %}" class="btn-start">Start a Project</a>
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <a href="/admin/" class="btn-signin">Admin Panel</a>
+                    {% else %}
+                        <a href="{% url 'users:profile' %}" class="btn-signin">Profile</a>
+                    {% endif %}
                 {% else %}
-                    <!-- Logged Out State -->
-                    <a href="{% url 'users:register' %}" class="btn-start">Start a Project</a>
-                    <a href="{% url 'users:login' %}" class="btn-signin">Sign In / Up</a>
+                    <a href="{% url 'users:login' %}" class="btn-signin" >Sign In / Up</a>
                 {% endif %}
             </div>
         </div>
         <div class="header-border"></div>
     </header>
 
-    <!-- HERO SLIDER -->
     <section class="hero-section">
         <div class="hero-slider">
             <div class="slide active slide-1" style="background-image: url('{% static 'assets/images/gettyimages-518037359-576.jpg' %}');">
-                <div class="container">
-                    <h1 class="hero-title">Raise the funds you need to fund your dream and build a better future in Egypt.</h1>
-                </div>
+                <div class="container"><h1 class="hero-title">Raise the funds you need to fund your dream and build a better future in Egypt.</h1></div>
             </div>
+            <div class="slide slide-2" style="background-image: url('{% static 'assets/images/business-support-and-career-growth-concept-helping-hand-adding-ladder-step-for-man-climbing-up-symbol-of-teamwork-opportunit.jpg' %}');">
+                <div class="container"><h1 class="hero-title">A little support can go a long way</h1></div>
+            </div>
+            <div class="slide slide-3" style="background-image: url('{% static 'assets/images/ef1a9f5d-ca6b-458e-ab21-44598f21974f.jpeg' %}');">
+                <div class="container"><h1 class="hero-title">Your story can inspire change.</h1></div>
+            </div>
+        </div>
+        <div class="slider-dots">
+            <span class="dot active" data-slide="0" aria-label="Slide 1"></span>
+            <span class="dot" data-slide="1" aria-label="Slide 2"></span>
+            <span class="dot" data-slide="2" aria-label="Slide 3"></span>
         </div>
     </section>
 
-    <!-- DYNAMIC FEATURED PROJECTS LOOP -->
+    <!-- Top-Rated Projects -->
     <section class="top-projects-section" id="top-rated-projects">
         <div class="container">
             <div class="section-heading">
                 <h2>Top-Rated Active Projects</h2>
                 <span class="heading-line"></span>
             </div>
-
             <div class="projects-grid">
-                {% for project in featured_projects %}
+                {% for p in top_rated_projects %}
                 <article class="project-card">
-                    <a href="{% url 'projects:project_details' project.id %}" class="project-card-link">
+                    <a href="{% url 'projects:project_details' p.id %}" class="project-card-link">
                         <div class="project-image-wrapper">
-                            <img src="{% static 'assets/images/image-3.webp' %}" alt="{{ project.title }}" class="project-image">
+                            <img src="{{ p.cover_image_url }}" alt="{{ p.title }}" class="project-image">
                         </div>
-
                         <div class="project-content">
                             <div class="project-meta">
-                                <span class="project-category">{{ project.category.name|upper }}</span>
-                                <button type="button" class="project-favorite" aria-label="Rating">
-                                    <span class="favorite-count">⭐ {{ project.average_rating }}</span>
+                                <span class="project-category">{{ p.category.name|upper }}</span>
+                                <button type="button" class="project-favorite" data-count="{{ p.donation_set.count }}" aria-label="Donations count" aria-pressed="false">
+                                    <span class="favorite-count">{{ p.donation_set.count }}</span>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 </button>
                             </div>
-
-                            <h3 class="project-title">{{ project.title }}</h3>
-                            <p class="project-description">{{ project.details|truncatechars:85 }}</p>
-
-                            <div class="project-progress">
-                                <span style="width: {{ project.funding_percentage }}%;"></span>
-                            </div>
-
+                            <h3 class="project-title">{{ p.title }}</h3>
+                            <p class="project-description">{{ p.details|truncatechars:100 }}</p>
+                            <div class="project-progress"><span style="width: {{ p.funding_percentage }}%;"></span></div>
                             <div class="project-footer">
-                                <strong>Target: {{ project.target_amount }} EGP</strong>
-                                <span>Status: {{ project.status }}</span>
+                                <strong>{{ p.funding_percentage }}% funded</strong>
+                                <span>{{ p.end_at|timeuntil }} left</span>
                             </div>
                         </div>
                     </a>
                 </article>
-                {% empty %}
-                    <p>No featured projects currently running. Check back soon!</p>
                 {% endfor %}
+                <a href="{% url 'projects:all_projects' %}" class="all-projects-card" id="all-projects">
+                    <span>All Projects</span>
+                    <span class="all-projects-arrow" aria-hidden="true">→</span>
+                </a>
             </div>
+        </div>
+    </section>
+
+    <!-- Recently Added Projects -->
+    <section class="top-projects-section recently-added-section" id="recent-projects">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Recently Added Projects</h2>
+                <span class="heading-line"></span>
+            </div>
+            <div class="projects-grid">
+                {% for p in latest_projects %}
+                <article class="project-card">
+                    <a href="{% url 'projects:project_details' p.id %}" class="project-card-link">
+                        <div class="project-image-wrapper">
+                            <img src="{{ p.cover_image_url }}" alt="{{ p.title }}" class="project-image">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-meta">
+                                <span class="project-category">{{ p.category.name|upper }}</span>
+                                <button type="button" class="project-favorite" data-count="{{ p.donation_set.count }}" aria-label="Donations count" aria-pressed="false">
+                                    <span class="favorite-count">{{ p.donation_set.count }}</span>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                </button>
+                            </div>
+                            <h3 class="project-title">{{ p.title }}</h3>
+                            <p class="project-description">{{ p.details|truncatechars:100 }}</p>
+                            <div class="project-progress"><span style="width: {{ p.funding_percentage }}%;"></span></div>
+                            <div class="project-footer">
+                                <span><strong>{{ p.funding_percentage }}%</strong> funded</span>
+                                <span>{{ p.created_at|timesince }} ago</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                {% endfor %}
+                <a href="{% url 'projects:all_projects' %}" class="all-projects-card">
+                    <span>All Projects</span>
+                    <span class="all-projects-arrow" aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Slider -->
+    <section class="featured-projects-section" aria-labelledby="featured-projects-title" id="featured-projects">
+        <div class="featured-projects-container">
+            <div class="featured-heading">
+                <h2 id="featured-projects-title">⭐ Featured Projects ⭐</h2>
+                <span></span>
+            </div>
+            
+            <script>
+                // Dynamically build the projects array for the frontend JS
+                window.FEATURED_PROJECTS = [
+                    {% for fp in featured_projects %}
+                    {
+                        category: "{{ fp.category.name|upper|escapejs }}",
+                        title: "{{ fp.title|escapejs }}",
+                        image: "{{ fp.cover_image_url|escapejs }}",
+                        alt: "{{ fp.title|escapejs }}",
+                        details: "{% url 'projects:project_details' fp.id %}"
+                    }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ];
+            </script>
+            
+            <div class="featured-projects-slider">
+                <button type="button" class="featured-arrow featured-arrow-prev" aria-label="Previous featured project">‹</button>
+                <div class="featured-project-content">
+                    <span class="featured-project-category">{% if featured_projects %}{{ featured_projects.0.category.name|upper }}{% endif %}</span>
+                    <h3 class="featured-project-title">{% if featured_projects %}{{ featured_projects.0.title }}{% endif %}</h3>
+                </div>
+                <a class="featured-project-image-link" href="{% if featured_projects %}{% url 'projects:project_details' featured_projects.0.id %}{% endif %}" aria-label="Open featured project details">
+                    <div class="featured-project-image-wrapper">
+                        <img class="featured-project-image" src="{% if featured_projects %}{{ featured_projects.0.cover_image_url }}{% endif %}" alt="Featured Project">
+                    </div>
+                </a>
+                <button type="button" class="featured-arrow featured-arrow-next" aria-label="Next featured project">›</button>
+            </div>
+            <div class="featured-project-dots" role="tablist" aria-label="Featured projects navigation"></div>
         </div>
     </section>
 
@@ -158,18 +226,40 @@
         <div class="footer-container">
             <div class="footer-brand">
                 <div class="logo">
-                    <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund Icon" class="logo-img-icon" style="height: 30px; display: inline-block; vertical-align: middle;">
-                    <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund Text" class="logo-img-text" style="height: 25px; display: inline-block; vertical-align: middle;">
+                    <a href="{% url 'projects:homepage' %}" aria-label="EgyFund Home">
+                        <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="" class="logo-img-icon">
+                        <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund" class="logo-img-text">
+                    </a>
                 </div>
                 <p class="footer-description">
-                    EgyFund is a crowdfunding platform built for Egypt.
+                    EgyFund is a crowdfunding platform built for Egypt, bringing people and ideas together to turn dreams into real projects. Start your journey, raise the funds you need, and make an impact that matters.
                 </p>
             </div>
+            <nav class="footer-links" aria-label="Footer navigation">
+                <div class="footer-links-column">
+                    <a href="{% url 'projects:generic_page' 'trust' %}">Trust &amp; Safety</a>
+                    <a href="{% url 'projects:generic_page' 'help' %}">Help Center</a>
+                </div>
+                <div class="footer-links-column">
+                    <a href="{% url 'projects:generic_page' 'terms' %}">Terms of Use</a>
+                    <a href="{% url 'projects:generic_page' 'privacy' %}">Privacy Policy</a>
+                    <a href="{% url 'projects:generic_page' 'cookies' %}">Cookie Policy</a>
+                </div>
+            </nav>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EgyFund. All rights reserved. Together, we fund the future.</p>
         </div>
     </footer>
 
-    <!-- JS Scripts wired to Django Static -->
+    <!-- JS -->
     <script src="{% static 'js/config.js' %}" defer></script>
-    <script src="{% static 'js/pages/home.js' %}" defer></script>
+    <script src="{% static 'js/utils/storage.js' %}" defer></script>
+    <script src="{% static 'js/api/auth.api.js' %}" defer></script>
+    <script src="{% static 'js/components/slider.js' %}" defer></script>
+    
+    <script src="{% static 'js/components/featured-projects.js' %}" defer></script>
+    <script src="{% static 'js/components/navigation.js' %}" defer></script>
+
 </body>
 </html>

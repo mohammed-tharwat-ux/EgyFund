@@ -54,6 +54,33 @@ class Project(models.Model):
             return 0
         pct = (self.total_donations / self.target_amount) * 100
         return min(round(pct, 1), 100)
+    @property
+    def cover_image_url(self):
+        first_img = self.images.order_by('display_order', 'id').first()
+        if first_img and first_img.image:
+            return first_img.image.url
+            
+        # Hardcoded dummy images for the exact seeded data to match FE designs perfectly
+        title_to_image = {
+            "A Student's Dream to Continue Education": "student-library-books-book-learn-education-knowledge-information-study.jpg",
+            "Rescue & Treatment for Injured Dogs": "_128575048_colin-wide-1.jpg",
+            "AeroLeaf: Desktop Wind Generator": "wheelchairs-hospital-patient-sitting-wheelchair-holds-his-hands-wheel-self-care-patients-mobility-127469472.webp",
+            "Recovery Fund for a Young Patient": "young-woman-hospital-recovery-room-surgery-patient-recovering-post-operative-care-modern-cast-pulse-oximeter-71090332.webp",
+            "Solar-Powered Water Purification Device": "image-3.webp",
+            "Women's Craft Cooperative": "image_0-19.webp",
+            "Vertical Garden for Home Farming": "aeroponic-garden-Indoor-Vertical-Farm.webp",
+            "Wheelchair & Rehab Support": "female-patient-in-recovery-room-E594X7.jpg",
+            "Emergency Care for Abandoned Animals": "1920_gettyimages-1162266390.jpg",
+            "Mobile Library for Rural Children": "pict_large.jpg",
+            "Custom 3D-printed prosthetic legs and arms for children.": "pngtree-abstract-golden-lines-ripple-fluttering-border-png-image_6787892.png"
+        }
+        
+        if self.title in title_to_image:
+            return f"/static/assets/images/{title_to_image[self.title]}"
+            
+        # Fallback to static placeholder if no image exists
+        return '/static/assets/images/image-3.webp'
+
     class Status(models.TextChoices):
         DRAFT = "DRAFT", "Draft"
         RUNNING = "RUNNING", "Running"

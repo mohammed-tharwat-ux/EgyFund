@@ -1,0 +1,163 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EgyFund | Category</title>
+
+    <link rel="icon" type="image/png" href="{% static 'assets/icons/logo_transparent.svg' %}">
+
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/slider.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/cards.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/featured-projects.css' %}">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container header-container">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="/">
+                    <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund Icon" class="logo-img-icon">
+                    <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund Text" class="logo-img-text">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="main-navigation" aria-label="Main navigation">
+                <div class="projects-navigation">
+                    <button type="button" class="nav-link projects-toggle" id="projects-toggle" aria-expanded="false" aria-controls="projects-menu">
+                        Projects <span class="projects-arrow" aria-hidden="true">&#9660;</span>
+                    </button>
+                    <!-- Missing Dropdown Menu Added Here -->
+                    <div id="projects-menu" class="projects-dropdown" hidden>
+                        <a href="{% url 'projects:all_projects' %}" class="project-menu-item">All Projects</a>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC CATEGORIES LOOP -->
+                <div class="categories-navigation">
+                    <button type="button" class="nav-link categories-toggle" id="categories-toggle" aria-expanded="false" aria-controls="categories-menu">
+                        Categories <span class="categories-arrow" aria-hidden="true">&#9660;</span>
+                    </button>
+                    <div id="categories-menu" class="categories-dropdown" hidden>
+                        <div class="categories-dropdown-content">
+                            {% for cat in categories %}
+                                <a href="{% url 'projects:category_projects' cat.id %}">{{ cat.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="header-actions">
+                {% if user.is_authenticated %}
+                    <!-- Sarah's Authenticated User Menu -->
+                    <div class="user-navigation">
+                        <button type="button" class="user-navigation-toggle" id="user-navigation-toggle" aria-expanded="false" aria-controls="user-navigation-menu">
+                            <span class="user-avatar">
+                                <img src="{% static 'assets/icons/profile-icon-white-bg.svg' %}" alt="User profile">
+                            </span>
+                            <span class="user-name" id="header-user-name">
+                                {{ user.first_name|default:user.email }}
+                            </span>
+                            <span class="user-chevron" aria-hidden="true">&#9660;</span>
+                        </button>
+
+                        <div class="user-navigation-menu" id="user-navigation-menu" hidden>
+                            <a href="{% url 'users:profile' %}" class="user-menu-item">
+                                <span class="user-menu-text">My Profile</span>
+                            </a>
+                            <div class="user-menu-divider" aria-hidden="true"></div>
+                            
+                            <!-- Django Secure Logout -->
+                            <form method="post" action="{% url 'users:logout' %}" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit" class="user-menu-item user-logout" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer;">
+                                    <span class="user-menu-text">Log out</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- Logged Out State -->
+                    <a href="{% url 'projects:go_fund' %}" class="btn-start">Start a Project</a>
+                    <a href="{% url 'users:login' %}" class="btn-signin">Sign In / Up</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="header-border"></div>
+    </header>
+    <main id="category-content" style="background-color: #f7f9fc;">
+        <section class="category-section" style="padding: 60px 0;">
+            <div class="container category-container">
+                <div class="category-heading" style="margin-bottom: 40px; text-align: center;">
+                    <h1 style="font-size: 2.5rem; color: #10182b;">{{ category.name }}</h1>
+                    <span style="display: inline-block; height: 4px; width: 80px; background-color: #df9e26; margin-top: 15px;"></span>
+                </div>
+
+                <div class="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
+                    {% for project in featured_projects %}
+                    <article class="project-card" style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s ease;">
+                        <a href="{% url 'projects:project_details' project.id %}" class="project-card-link" style="text-decoration: none; color: inherit;">
+                            <div class="project-image-wrapper" style="height: 200px; overflow: hidden;">
+                                <img src="{{ project.cover_image_url }}" alt="{{ project.title }}" class="project-image" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+
+                            <div class="project-content" style="padding: 20px;">
+                                <div class="project-meta" style="margin-bottom: 10px;">
+                                    <span class="project-category" style="color: #df9e26; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px;">{{ project.category.name|upper }}</span>
+                                </div>
+                                <h3 class="project-title" style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px; color: #10182b;">{{ project.title }}</h3>
+                                <p class="project-description" style="color: #666; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px;">{{ project.details|truncatechars:85 }}</p>
+                                
+                                <div class="project-progress" style="height: 6px; background: #eee; border-radius: 3px; margin-bottom: 10px; overflow: hidden;">
+                                    <span style="display: block; height: 100%; background: #df9e26; width: {{ project.funding_percentage }}%;"></span>
+                                </div>
+                                
+                                <div class="project-footer" style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #10182b;">
+                                    <strong>{{ project.funding_percentage }}% funded</strong>
+                                    <span style="color: #666;">{{ project.end_at|timeuntil }} left</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                    {% empty %}
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px; background: #fff; border-radius: 8px;">
+                            <p class="empty-category" style="font-size: 1.2rem; color: #666;">No projects available in this category.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer" id="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">
+                    <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund Icon" class="logo-img-icon" style="height: 30px; display: inline-block; vertical-align: middle;">
+                    <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund Text" class="logo-img-text" style="height: 25px; display: inline-block; vertical-align: middle;">
+                </div>
+                <p class="footer-description">
+                    EgyFund is a crowdfunding platform built for Egypt.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Scripts wired to Django Static -->
+    <script src="{% static 'js/config.js' %}" defer></script>
+    
+    <script src="{% static 'js/components/navigation.js' %}" defer></script>
+</body>
+</html>

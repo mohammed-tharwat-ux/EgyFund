@@ -1,0 +1,685 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Panel | EgyFund</title>
+
+    <link rel="icon" type="image/svg+xml" href="{% static 'assets/icons/logo_transparent.svg' %}">
+
+    <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/admin.css' %}">
+</head>
+
+<body class="admin-page">
+
+    <header class="admin-header">
+
+        <div class="admin-header-main">
+
+            <a href="{% url 'projects:homepage' %}" class="admin-logo">
+                <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund logo">
+
+                <span>gyFund</span>
+            </a>
+
+            <nav class="quick-links">
+                <a href="{% url 'projects:all_projects' %}">
+                    Projects
+                </a>
+
+                <a href="#categories" data-tab-link="categories">
+                    Categories
+                </a>
+            </nav>
+
+            <div class="admin-search">
+                <input type="search" id="admin-global-search" placeholder="Try searching titles and tags"
+                    aria-label="Search">
+
+                <button type="button" id="global-search-button" aria-label="Search">
+                    ⌕
+                </button>
+            </div>
+
+            <div class="admin-user" style="position: relative; cursor: pointer;" onclick="document.getElementById('admin-user-menu').style.display = document.getElementById('admin-user-menu').style.display === 'none' ? 'flex' : 'none';">
+                <div class="admin-avatar">?</div>
+
+                <span>{{ request.user.first_name|default:request.user.email }}</span>
+
+                <button type="button" class="admin-user-back" aria-label="Open user menu">
+                    &#9660;
+                </button>
+
+                <div id="admin-user-menu" style="display: none; position: absolute; top: 120%; right: 0; background: #fff; border: 1px solid #e1e4e8; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 6px; padding: 8px 0; min-width: 160px; z-index: 1000; flex-direction: column;">
+                    <a href="{% url 'users:profile' %}" style="display: block; padding: 10px 16px; color: #24292e; text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #e1e4e8;">My Profile</a>
+                    <a href="{% url 'projects:homepage' %}" style="display: block; padding: 10px 16px; color: #24292e; text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #e1e4e8;">Back to Site</a>
+                    <form method="post" action="{% url 'users:logout' %}" style="margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" style="display: block; width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; color: #d73a49; cursor: pointer; font-size: 0.9rem;">Logout</button>
+                    </form>
+                </div>
+            </div>
+
+                <span>{{ request.user.first_name|default:request.user.email }}</span>
+
+                <button type="button" class="admin-user-back" aria-label="Open user menu">
+                    «
+                </button>
+            </div>
+
+        </div>
+
+        <nav class="admin-navigation" aria-label="Admin navigation">
+
+            <a href="#dashboard" data-tab-link="dashboard" class="active">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="#users" data-tab-link="users">
+                <span>♙</span>
+                Users
+            </a>
+
+            <a href="#projects" data-tab-link="projects">
+                <span>🚀</span>
+                Projects
+            </a>
+
+            <a href="#categories" data-tab-link="categories">
+                <span>☰</span>
+                Categories
+            </a>
+
+            <a href="#featured" data-tab-link="featured">
+                <span>☆</span>
+                Featured Projects
+            </a>
+
+            <a href="#reports" data-tab-link="reports">
+                <span>♧</span>
+                Reports
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <main class="admin-main">
+
+        <!-- ================= Dashboard ================= -->
+
+        <section class="admin-tab active-tab" id="dashboard" data-tab="dashboard">
+
+            <div class="statistics-grid">
+
+                <article class="stat-card">
+                    <span class="stat-label">Total Users</span>
+                    <strong>{{ total_users }}</strong>
+                    <small class="positive">
+                        +14.2% <em>vs last month</em>
+                    </small>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-label">Total Projects</span>
+                    <strong>{{ total_projects }}</strong>
+                    <small class="positive">
+                        +8.1% <em>vs last month</em>
+                    </small>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-label">Active Projects</span>
+                    <strong>{{ active_projects }}</strong>
+                    <small class="positive">
+                        +5.4% <em>vs last month</em>
+                    </small>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-label">Total Donations</span>
+                    <strong>{{ total_donations }} EGP</strong>
+                    <small class="positive">
+                        +21.5% <em>vs last month</em>
+                    </small>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-label">Reported Projects</span>
+                    <strong>{{ reported_projects }}</strong>
+                    <small class="negative">
+                        −12.3% <em>vs last month</em>
+                    </small>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-label">Reported Comments</span>
+                    <strong>{{ reported_comments }}</strong>
+                    <small class="negative">
+                        +18.5% <em>vs last month</em>
+                    </small>
+                </article>
+
+            </div>
+
+            <section class="donation-chart-card">
+
+                <div class="chart-header">
+                    <div>
+                        <h1>Donation Trends</h1>
+                        <p>
+                            Platform donations recorded over the last 6 months
+                        </p>
+                    </div>
+
+                    <span class="live-badge">Live Data</span>
+                </div>
+
+                <div class="chart">
+
+                    <div class="chart-grid-lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <svg viewBox="0 0 620 180" preserveAspectRatio="none" aria-label="Donation trends">
+
+                        <polyline points="0,137 124,103 248,152 372,67 496,103 620,8" fill="none" stroke="#ed9b00"
+                            stroke-width="2.5">
+                        </polyline>
+
+                    </svg>
+
+                    <div class="chart-axis">
+                        <span>May</span>
+                        <span>Jun</span>
+                        <span>Jul</span>
+                        <span>Aug</span>
+                        <span>Sep</span>
+                        <span>Oct</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- ================= Users ================= -->
+
+        <section class="admin-tab" id="users" data-tab="users">
+
+            <div class="filter-row">
+                <button class="filter-button">Status: All</button>
+                <button class="filter-button">Sort: Joined Date</button>
+            </div>
+
+            <section class="admin-table-card">
+
+                <div class="table-scroll">
+
+                    <table class="admin-table users-table">
+
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Joined Date</th>
+                                <th>Created Projects</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        
+                        
+                        
+                    <tbody>
+                        {% for u in users_list %}
+                        <tr>
+                            <td><div class="user-avatar-small">{{ u.first_name.0|default:"U" }}</div></td>
+                            <td><strong>{{ u.first_name }} {{ u.last_name }}</strong></td>
+                            <td>{{ u.email }}</td>
+                            <td>{{ u.created_at|date:"M d, Y"|default:"-" }}</td>
+                            <td>{{ u.projects.count|default:0 }}</td>
+                            <td>
+                                {% if u.is_active %}
+                                <span class="status active">Active</span>
+                                {% else %}
+                                <span class="status suspended">Suspended</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="6">No users found.</td></tr>
+                        {% endfor %}
+</tbody>
+
+
+
+
+                    </table>
+
+                </div>
+
+                <div class="table-footer">
+                    <span>Showing 1 to 10 of 124 results</span>
+                    <div class="pagination">
+                        <button>Previous</button>
+                        <button class="current">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>Next</button>
+                    </div>
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- ================= Projects ================= -->
+
+        <section class="admin-tab" id="projects" data-tab="projects">
+
+            <div class="filter-row">
+                <button class="filter-button">Category: All</button>
+                <button class="filter-button">Status: Active</button>
+            </div>
+
+            <section class="admin-table-card">
+
+                <div class="table-scroll">
+
+                    <table class="admin-table projects-table">
+
+                        <thead>
+                            <tr>
+                                <th>Preview</th>
+                                <th>Project Title</th>
+                                <th>Creator</th>
+                                <th>Category</th>
+                                <th>Goal / Raised</th>
+                                <th>Funding Progress</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for p in projects_list %}
+                        <tr>
+                            <td><img src="{{ p.cover_image_url }}" alt="Project" style="width:50px; height:50px; object-fit:cover; border-radius:4px;"></td>
+                            <td><strong>{{ p.title|truncatechars:30 }}</strong></td>
+                            <td>{{ p.owner.email|default:"-" }}</td>
+                            <td>{{ p.category.name }}</td>
+                            <td>{{ p.current_amount|default:"0" }} / {{ p.target_amount }}</td>
+                            <td>
+                                <div class="funding-progress" style="height:4px; background:#eee; margin-top:5px; border-radius:2px; overflow:hidden;"><span style="display:block; height:100%; background:#df9e26; width:{{ p.funding_percentage }}%;"></span></div>
+                            </td>
+                            <td class="actions">
+                                <a href="{% url 'projects:project_details' p.id %}" style="margin-right:10px; color:#10182b; font-weight:bold; text-decoration:none;">View</a>
+                                <form method="post" action="{% url 'admin_delete_project' p.id %}" style="display:inline;" onsubmit="return confirm('Delete project?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="7">No projects found.</td></tr>
+                        {% endfor %}
+</tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="table-footer">
+                    <span>Showing 1 to 10 of 124 results</span>
+                    <div class="pagination">
+                        <button>Previous</button>
+                        <button class="current">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>Next</button>
+                    </div>
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- ================= Categories ================= -->
+
+        <section class="admin-tab" id="categories" data-tab="categories">
+
+            <section class="admin-table-card categories-card">
+
+                <div class="section-title-row">
+                    <h2>Product Categories</h2>
+
+                    <button class="outline-button" data-show-tab="add-category">
+                        + Add Category
+                    </button>
+                </div>
+
+                <table class="admin-table">
+
+                    <thead>
+                        <tr>
+                            <th>Category Name</th>
+                            <th>No. of Projects</th>
+                            <th>Date Added</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for c in categories_list %}
+                        <tr>
+                            <td><strong>{{ c.name }}</strong></td>
+                            <td>{{ c.project_set.count|default:0 }}</td>
+                            <td>-</td>
+                            <td class="actions">
+
+                                <form method="post" action="{% url 'admin_edit_category' c.id %}" style="display:inline;" onsubmit="let newName = prompt('Enter new category name:', '{{ c.name|escapejs }}'); if(newName){ this.querySelector('input[name=name]').value = newName; return true; } return false;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="name" value="">
+                                    <button type="submit">Edit</button>
+                                </form>
+                                <form method="post" action="{% url 'admin_delete_category' c.id %}" style="display:inline;" onsubmit="return confirm('Delete category? This may remove associated projects!');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="danger">Delete</button>
+                                </form>
+
+</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="4">No categories found.</td></tr>
+                        {% endfor %}
+</tbody>
+
+                </table>
+
+            </section>
+
+        </section>
+
+
+        <!-- ================= Add Category ================= -->
+
+        <section class="admin-tab" id="add-category" data-tab="add-category">
+
+            <section class="category-form-card">
+
+                <div class="section-title-row">
+                    <h2>New Category Details</h2>
+                </div>
+
+                <form id="django-category-form" method="POST" action="{% url 'admin_add_category' %}">
+                    {% csrf_token %}
+                    <label for="category-name">Category Name</label>
+                    <input id="category-name" name="name" type="text" placeholder="e.g. Healthcare & Medicine" required>
+
+                    <label for="category-description">
+                        Category Description
+                    </label>
+
+                    <textarea id="category-description" rows="4"
+                        required>Support innovative projects raising capital for medical equipment, patient care improvements, research and development, and healthcare accessibility campaigns worldwide.</textarea>
+
+                    <label>Category Icon / Display Image</label>
+
+                    <label class="upload-box" for="category-image">
+
+                        <span class="upload-icon">♧</span>
+                        <strong>Click to upload display icon</strong>
+                        <small>PNG, JPG, SVG up to 2MB</small>
+
+                    </label>
+
+                    <input id="category-image" type="file" accept=".png,.jpg,.jpeg,.svg">
+
+                    <div class="category-status">
+
+                        <div>
+                            <strong>Mark as Active</strong>
+                            <small>
+                                Category will be available for creators when adding new crowdfunding campaigns.
+                            </small>
+                        </div>
+
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span></span>
+                        </label>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="cancel-button" data-show-tab="categories">
+                            Cancel &amp; Exit
+                        </button>
+
+                        <button type="submit" class="save-button">
+                            Save Category
+                        </button>
+                    </div>
+
+                </form>
+
+            </section>
+
+        </section>
+
+
+        <!-- ================= Featured Projects ================= -->
+
+        
+        <section class="admin-tab" id="featured" data-tab="featured">
+
+            <h2 class="content-heading">
+                Currently Featured (Active)
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                {% for p in featured_projects %}
+                <article class="featured-project-card" style="border: 1px solid #eee; border-radius: 8px; padding: 15px; background: #fff;">
+                    <div class="featured-image" style="height: 150px; overflow: hidden; border-radius: 8px; margin-bottom: 10px;">
+                        <img src="{{ p.cover_image_url }}" alt="{{ p.title }}" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <span class="project-category-label" style="font-size: 0.8rem; font-weight: bold; color: #df9e26;">{{ p.category.name|upper }}</span>
+                    <div class="featured-title-row" style="margin-top: 5px;">
+                        <h3 style="font-size: 1.1rem; margin: 0;">{{ p.title|truncatechars:40 }}</h3>
+                    </div>
+                    <div class="funding-progress" style="height: 6px; background: #eee; border-radius: 3px; margin: 10px 0; overflow: hidden;">
+                        <span style="display: block; height: 100%; background: #df9e26; width: {{ p.funding_percentage }}%;"></span>
+                    </div>
+                    <div class="featured-meta" style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #666; margin-bottom: 15px;">
+                        <strong>{{ p.funding_percentage }}% funded</strong>
+                        <span>{{ p.end_at|timeuntil }} left</span>
+                    </div>
+                    
+                    <form method="post" action="{% url 'admin_toggle_featured' p.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="remove-featured">Remove from Featured</button>
+                    </form>
+                </article>
+                {% empty %}
+                <p>No featured projects found.</p>
+                {% endfor %}
+            </div>
+
+            <section class="admin-table-card featured-list" style="margin-top: 40px;">
+
+                <div class="section-title-row">
+                    <h2>Select Projects to Feature</h2>
+                    <input type="search" placeholder="Search project...">
+                </div>
+
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in projects_list %}
+                        <tr>
+                            <td><strong>{{ p.title }}</strong></td>
+                            <td>{{ p.category.name }}</td>
+                            <td>
+                                {% if p.is_featured %}
+                                <span class="status active">Featured</span>
+                                {% else %}
+                                <span class="status inactive">Not Featured</span>
+                                {% endif %}
+                            </td>
+                            <td class="actions">
+                                <form method="post" action="{% url 'admin_toggle_featured' p.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit">{% if p.is_featured %}Remove{% else %}Feature{% endif %}</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+
+        <section class="admin-tab" id="reports" data-tab="reports">
+
+            <div class="reports-layout">
+
+                <section class="admin-table-card reports-table">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Project Title</th>
+                                <th>Reported By</th>
+                                <th>Reason</th>
+                                <th>Date Reported</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for pr in project_reports_list %}
+                            <tr>
+                                <td><strong>{{ pr.project.title }}</strong></td>
+                                <td>{{ pr.user.email }}</td>
+                                <td>{{ pr.reason|truncatechars:30 }}</td>
+                                <td>{{ pr.created_at|date:"M d, Y" }}</td>
+                                <td><span class="status reported">Reported</span></td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="5">No project reports found.</td></tr>
+                            {% endfor %}
+                        </tbody>
+
+
+                    </table>
+
+                </section>
+
+                <aside class="report-details">
+
+                    <div class="section-title-row">
+                        <h2>Report Details</h2>
+                        <span class="status pending">Pending Review</span>
+                    </div>
+
+                    <hr>
+
+                    <small>Project Flagged</small>
+                    <strong>Blockchain Microloans</strong>
+
+                    <small>Reported By</small>
+                    <span>James Miller (ID: #1024)</span>
+
+                    <small>Reason for Flag</small>
+                    <p>
+                        “The creator is promising guaranteed monetary
+                        returns through microfinance dividends, which
+                        violates the platform's non-investment terms.”
+                    </p>
+
+                    <button class="primary-action">
+                        Dismiss Report
+                    </button>
+
+                    <button class="secondary-action">
+                        View Full Project Page
+                    </button>
+
+                    <button class="delete-action">
+                        Delete &amp; Suspend Project
+                    </button>
+
+                </aside>
+
+            </div>
+
+            <section class="admin-table-card comments-card">
+                <h2>Reported Comments</h2>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Comment Text</th>
+                            <th>Author</th>
+                            <th>Project</th>
+                            <th>Date Reported</th>
+                            <th>Likes</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for cr in comment_reports_list %}
+                        <tr>
+                            <td>"{{ cr.comment.content|truncatechars:50 }}"</td>
+                            <td><strong>{{ cr.comment.user.email }}</strong></td>
+                            <td>{{ cr.comment.project.title }}</td>
+                            <td>{{ cr.created_at|date:"M d, Y" }}</td>
+                            <td>—</td>
+                            <td><span class="status reported">Reported</span></td>
+                            <td class="actions">
+                                <button>View</button>
+                                <form method="post" action="{% url 'admin_delete_comment' cr.comment.id %}" style="display:inline;" onsubmit="return confirm('Delete comment?');">{% csrf_token %}<button type="submit" class="danger">Delete</button></form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="7">No comment reports found.</td></tr>
+                        {% endfor %}
+                    </tbody>
+
+
+                </table>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <script src="{% static 'js/pages/admin.js' %}" defer></script>
+
+</body>
+
+</html>

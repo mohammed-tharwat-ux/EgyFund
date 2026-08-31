@@ -22,6 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("egyfund-campaign-draft");
         localStorage.removeItem("egyfund-favorites");
 
-        window.location.href = "../../index.html";
+        window.location.href = "/";
     });
 });

@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <a href="{% url 'users:register' %}" class="btn-start">Start a Project</a>
+                    <a href="{% url 'projects:go_fund' %}" class="btn-start">Start a Project</a>
                     <a href="{% url 'users:login' %}" class="btn-signin">Sign In / Up</a>
                 {% endif %}
             </div>
@@ -98,7 +98,7 @@
                 <h1 class="details-title">{{ project.title }}</h1>
 
                 <div class="details-cover">
-                    <img src="{% static 'assets/images/image-3.webp' %}" alt="{{ project.title }}">
+                    <img src="{{ project.cover_image_url }}" alt="{{ project.title }}">
                 </div>
 
                 <div class="details-layout">
@@ -136,12 +136,98 @@
                                 <a href="{% url 'users:login' %}">Sign in</a> to donate to this project.
                             </p>
                         {% endif %}
+                    
+                        {% if user.is_authenticated %}
+                            <form method="post" action="{% url 'projects:report_project' project.id %}" style="margin-top: 15px; text-align: center;">
+                                {% csrf_token %}
+                                <button type="submit" style="background: none; border: none; color: #dc3545; text-decoration: underline; cursor: pointer; font-size: 0.85rem;">
+                                    🚩 Report This Project
+                                </button>
+                            </form>
+                        {% endif %}
                     </aside>
+
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="comments-section" style="margin: 40px 0;">
+            <div class="details-container">
+                <h2>Comments ({{ project.comments.count }})</h2>
+
+                {% if user.is_authenticated %}
+                <form class="comment-box" method="post" action="{% url 'projects:add_comment' project.id %}" style="margin-bottom: 30px;">
+                    {% csrf_token %}
+                    <textarea name="content" required placeholder="Ask a question or share your thoughts with the creator..." style="width: 100%; min-height: 80px; padding: 10px; border-radius: 8px; border: 1px solid #ccc;"></textarea>
+                    <button type="submit" style="margin-top: 10px; padding: 8px 16px; background-color: #0b1329; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Post Comment</button>
+                </form>
+                {% else %}
+                <p><a href="{% url 'users:login' %}">Sign in</a> to leave a comment.</p>
+                {% endif %}
+
+                <div class="comment-list">
+                    {% for comment in project.comments.all %}
+                        {% if not comment.parent_comment %}
+                        <article class="comment" style="border-bottom: 1px solid #eee; padding: 15px 0;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <b>{{ comment.user.first_name }} {{ comment.user.last_name }}</b>
+                                    <small style="color: #666; margin-left: 10px;">{{ comment.created_at|timesince }} ago</small>
+                                </div>
+                                {% if user.is_authenticated %}
+                                <form method="post" action="{% url 'projects:report_comment' project.id comment.id %}" style="margin: 0;">
+                                    {% csrf_token %}
+                                    <button type="submit" style="background: none; border: none; color: #dc3545; font-size: 0.75rem; cursor: pointer;">Report</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            <p style="margin: 10px 0;">{{ comment.content }}</p>
+
+                            {% if user.is_authenticated %}
+                            <details style="margin-top: 10px;">
+                                <summary style="font-size: 0.85rem; color: #0066cc; cursor: pointer;">Reply</summary>
+                                <form method="post" action="{% url 'projects:add_reply' project.id comment.id %}" style="margin-top: 10px;">
+                                    {% csrf_token %}
+                                    <textarea name="content" required placeholder="Write a reply..." style="width: 100%; min-height: 50px; padding: 8px; border-radius: 4px; border: 1px solid #ccc;"></textarea>
+                                    <button type="submit" style="margin-top: 5px; padding: 5px 10px; background-color: #f1f1f1; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Submit Reply</button>
+                                </form>
+                            </details>
+                            {% endif %}
+
+                            <!-- Replies -->
+                            {% if comment.replies.all %}
+                            <div class="replies" style="margin-left: 30px; margin-top: 15px; border-left: 2px solid #ddd; padding-left: 15px;">
+                                {% for reply in comment.replies.all %}
+                                <article class="reply" style="margin-bottom: 10px;">
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <div>
+                                            <b>{{ reply.user.first_name }} {{ reply.user.last_name }}</b>
+                                            <small style="color: #666; margin-left: 10px;">{{ reply.created_at|timesince }} ago</small>
+                                        </div>
+                                        {% if user.is_authenticated %}
+                                        <form method="post" action="{% url 'projects:report_comment' project.id reply.id %}" style="margin: 0;">
+                                            {% csrf_token %}
+                                            <button type="submit" style="background: none; border: none; color: #dc3545; font-size: 0.75rem; cursor: pointer;">Report</button>
+                                        </form>
+                                        {% endif %}
+                                    </div>
+                                    <p style="margin: 5px 0;">{{ reply.content }}</p>
+                                </article>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </article>
+                        {% endif %}
+                    {% empty %}
+                        <p>No comments yet. Be the first to share your thoughts!</p>
+                    {% endfor %}
                 </div>
             </div>
         </section>
 
         <section class="similar-section">
+
             <div class="details-container">
                 <h2>Similar Projects</h2>
                 <div class="similar-grid">
@@ -162,6 +248,7 @@
         </section>
     </main>
 
-    <script src="{% static 'js/pages/home.js' %}" defer></script>
+    
+    <script src="{% static 'js/components/navigation.js' %}" defer></script>
 </body>
 </html>

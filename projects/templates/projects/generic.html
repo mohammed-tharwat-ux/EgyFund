@@ -1,0 +1,144 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EgyFund | {{ title }}</title>
+
+    <link rel="icon" type="image/png" href="{% static 'assets/icons/logo_transparent.svg' %}">
+
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/slider.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/cards.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/featured-projects.css' %}">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container header-container">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="/">
+                    <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund Icon" class="logo-img-icon">
+                    <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund Text" class="logo-img-text">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="main-navigation" aria-label="Main navigation">
+                <div class="projects-navigation">
+                    <button type="button" class="nav-link projects-toggle" id="projects-toggle" aria-expanded="false" aria-controls="projects-menu">
+                        Projects <span class="projects-arrow" aria-hidden="true">&#9660;</span>
+                    </button>
+                    <!-- Missing Dropdown Menu Added Here -->
+                    <div id="projects-menu" class="projects-dropdown" hidden>
+                        <a href="{% url 'projects:all_projects' %}" class="project-menu-item">All Projects</a>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC CATEGORIES LOOP -->
+                <div class="categories-navigation">
+                    <button type="button" class="nav-link categories-toggle" id="categories-toggle" aria-expanded="false" aria-controls="categories-menu">
+                        Categories <span class="categories-arrow" aria-hidden="true">&#9660;</span>
+                    </button>
+                    <div id="categories-menu" class="categories-dropdown" hidden>
+                        <div class="categories-dropdown-content">
+                            {% for cat in categories %}
+                                <a href="{% url 'projects:category_projects' cat.id %}">{{ cat.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="header-actions">
+                {% if user.is_authenticated %}
+                    <!-- Sarah's Authenticated User Menu -->
+                    <div class="user-navigation">
+                        <button type="button" class="user-navigation-toggle" id="user-navigation-toggle" aria-expanded="false" aria-controls="user-navigation-menu">
+                            <span class="user-avatar">
+                                <img src="{% static 'assets/icons/profile-icon-white-bg.svg' %}" alt="User profile">
+                            </span>
+                            <span class="user-name" id="header-user-name">
+                                {{ user.first_name|default:user.email }}
+                            </span>
+                            <span class="user-chevron" aria-hidden="true">&#9660;</span>
+                        </button>
+
+                        <div class="user-navigation-menu" id="user-navigation-menu" hidden>
+                            <a href="{% url 'users:profile' %}" class="user-menu-item">
+                                <span class="user-menu-text">My Profile</span>
+                            </a>
+                            <div class="user-menu-divider" aria-hidden="true"></div>
+                            
+                            <!-- Django Secure Logout -->
+                            <form method="post" action="{% url 'users:logout' %}" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit" class="user-menu-item user-logout" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer;">
+                                    <span class="user-menu-text">Log out</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- Logged Out State -->
+                    <a href="{% url 'projects:go_fund' %}" class="btn-start">Start a Project</a>
+                    <a href="{% url 'users:login' %}" class="btn-signin">Sign In / Up</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="header-border"></div>
+    </header>
+    
+    <main style="padding: 80px 20px; min-height: 60vh; background: #f9f9f9;">
+        <div class="container" style="max-width: 800px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <h1 style="font-size: 2.5rem; margin-bottom: 20px; color: #10182b; border-bottom: 2px solid #df9e26; padding-bottom: 10px;">{{ title }}</h1>
+            
+            <div style="font-size: 1.1rem; line-height: 1.8; color: #444;">
+                <p style="margin-bottom: 20px;">Welcome to the {{ title }} page. At EgyFund, we are committed to providing a transparent, secure, and reliable platform for all our users.</p>
+                
+                <h3 style="font-size: 1.5rem; color: #10182b; margin: 30px 0 15px;">1. General Information</h3>
+                <p style="margin-bottom: 20px;">This is a generic placeholder text for the {{ title }} section. In a full production environment, this page would contain detailed legal clauses, comprehensive guidelines, and specific policies tailored to Egyptian crowdfunding regulations and international standards.</p>
+                
+                <h3 style="font-size: 1.5rem; color: #10182b; margin: 30px 0 15px;">2. User Responsibilities</h3>
+                <p style="margin-bottom: 20px;">Users are expected to interact respectfully, provide accurate information when creating campaigns or making donations, and adhere to all local laws. Any fraudulent activity or misuse of the platform will result in immediate account suspension.</p>
+                
+                <h3 style="font-size: 1.5rem; color: #10182b; margin: 30px 0 15px;">3. Contact Us</h3>
+                <p style="margin-bottom: 20px;">If you have any questions or concerns regarding these policies, please reach out to our support team at <strong>support@egyfund.com</strong>. We aim to respond to all inquiries within 48 hours.</p>
+                
+                <div style="margin-top: 50px; padding: 20px; background: #f0f4f8; border-radius: 8px; font-size: 0.9rem;">
+                    <p style="margin: 0; color: #666;">Last updated: August 2026</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <footer class="site-footer" id="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">
+                    <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund Icon" class="logo-img-icon" style="height: 30px; display: inline-block; vertical-align: middle;">
+                    <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund Text" class="logo-img-text" style="height: 25px; display: inline-block; vertical-align: middle;">
+                </div>
+                <p class="footer-description">
+                    EgyFund is a crowdfunding platform built for Egypt.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Scripts wired to Django Static -->
+    <script src="{% static 'js/config.js' %}" defer></script>
+    
+    <script src="{% static 'js/components/navigation.js' %}" defer></script>
+</body>
+</html>

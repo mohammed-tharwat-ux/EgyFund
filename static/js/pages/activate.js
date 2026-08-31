@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setTimeout(() => {
                 window.location.href =
-                    "../../index.html?login=1";
+                    "/?login=1";
             }, 1000);
         } catch (error) {
             showMessage(

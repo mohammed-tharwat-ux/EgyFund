@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.removeItem("currentUser");
             localStorage.removeItem("user");
 
-            window.location.href = "index.html";
+            window.location.href = "/";
         });
 
     function setupDropdown(

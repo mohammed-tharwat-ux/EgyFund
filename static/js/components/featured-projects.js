@@ -10,47 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    const projects = [
-        {
-            category: "MEDICAL",
-            title: "Custom 3D-printed prosthetic legs and arms for children who have lost limbs — affordable, lightweight, and made to grow with them.",
-            image: "assets/images/tumblr_m4ffrbSoiu1qjpfe3o1_1280.png",
-            alt: "Custom 3D-printed prosthetic legs",
-            details: "pages/projects/project-details.html?id=prosthetic-legs"
-        },
-
-        {
-            category: "MEDICAL",
-            title: "Essential medical and wound-care supplies for patients receiving treatment at home — funding helps keep this shelf stocked for those who depend on it.",
-            image: "assets/images/ACTIVATE-3.jpg",
-            alt: "Mobile library for rural children",
-            details: "pages/projects/project-details.html?id=mobile-library"
-        },
-
-        {
-            category: "EDUCATION",
-            title: "A scholarship fund to cover tuition and books for students who can't afford to continue their education",
-            image: "assets/images/1363284-scholarships - Copy.webp",
-            alt: "Healthcare support project",
-            details: "pages/projects/project-details.html?id=health-care"
-        },
-
-        {
-            category: "GREEA TECH",
-            title: "Bringing safe drinking water systems to villages in Upper Egypt that still struggle with unclean water sources.",
-            image: "assets/images/an-egyptian-farm-irrigation-system-to-channel-water-from-the-river-nile-to-sugar-cane-plantations-in-rural-upper-egypt-2R217.jpg",
-            alt: "Animal welfare project",
-            details: "pages/projects/project-details.html?id=animal-care"
-        },
-
-        {
-            category: "ORPHAN",
-            title: "Supporting shelter and schooling for orphaned children across Egypt, giving them a real chance at a stable future.",
-            image: 'assets/images/IMG_2401.jpg',
-            alt: "Green technology project",
-            details: "pages/projects/project-details.html?id=green-tech",
-        }
-    ];
+    const projects = window.FEATURED_PROJECTS || [];
 
 
     const categoryElement = featuredSection.querySelector(

@@ -50,6 +50,11 @@
                 </div>
 
                 <div class="form-field full-width">
+                    <label for="campaign-image">Project Cover Image</label>
+                    <input id="campaign-image" name="image" type="file" accept="image/*" required>
+                </div>
+
+                <div class="form-field full-width">
                     <label for="campaign-description">Project Description</label>
                     <textarea id="campaign-description" name="description" rows="5" required></textarea>
                 </div>
@@ -81,5 +86,6 @@
             </div>
         </form>
     </main>
+    <script src="{% static 'js/components/navigation.js' %}" defer></script>
 </body>
 </html>
