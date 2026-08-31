@@ -38,6 +38,10 @@
                     <button type="button" class="nav-link projects-toggle" id="projects-toggle" aria-expanded="false" aria-controls="projects-menu">
                         Projects <span class="projects-arrow" aria-hidden="true">▾</span>
                     </button>
+                    <!-- Missing Dropdown Menu Added Here -->
+                    <div id="projects-menu" class="projects-dropdown" hidden>
+                        <a href="#" class="project-menu-item">All Projects</a>
+                    </div>
                 </div>
 
                 <!-- DYNAMIC CATEGORIES LOOP -->
@@ -48,7 +52,7 @@
                     <div id="categories-menu" class="categories-dropdown" hidden>
                         <div class="categories-dropdown-content">
                             {% for cat in categories %}
-                                <a href="#">{{ cat.name }}</a>
+                                <a href="{% url 'projects:category_projects' cat.id %}">{{ cat.name }}</a>
                             {% endfor %}
                         </div>
                     </div>
@@ -70,7 +74,7 @@
                         </button>
 
                         <div class="user-navigation-menu" id="user-navigation-menu" hidden>
-                            <a href="#" class="user-menu-item">
+                            <a href="{% url 'users:profile' %}" class="user-menu-item">
                                 <span class="user-menu-text">My Profile</span>
                             </a>
                             <div class="user-menu-divider" aria-hidden="true"></div>
@@ -133,7 +137,7 @@
                             <p class="project-description">{{ project.details|truncatechars:85 }}</p>
 
                             <div class="project-progress">
-                                <span style="width: 50%;"></span>
+                                <span style="width: {{ project.funding_percentage }}%;"></span>
                             </div>
 
                             <div class="project-footer">
@@ -154,7 +158,8 @@
         <div class="footer-container">
             <div class="footer-brand">
                 <div class="logo">
-                    <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund" class="logo-img-text">
+                    <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund Icon" class="logo-img-icon" style="height: 30px; display: inline-block; vertical-align: middle;">
+                    <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund Text" class="logo-img-text" style="height: 25px; display: inline-block; vertical-align: middle;">
                 </div>
                 <p class="footer-description">
                     EgyFund is a crowdfunding platform built for Egypt.

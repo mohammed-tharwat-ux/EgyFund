@@ -46,6 +46,14 @@ class Project(models.Model):
             return False
         funding_ratio = (self.total_donations / self.target_amount) * 100
         return funding_ratio < 25
+
+    @property
+    def funding_percentage(self):
+        """Returns 0–100, clamped, for driving progress bars in templates."""
+        if not self.target_amount or self.target_amount == 0:
+            return 0
+        pct = (self.total_donations / self.target_amount) * 100
+        return min(round(pct, 1), 100)
     class Status(models.TextChoices):
         DRAFT = "DRAFT", "Draft"
         RUNNING = "RUNNING", "Running"

@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | EgyFund</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/icons/logo_transparent.svg' %}">
+    <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/auth.css' %}">
+</head>
+
+<body class="auth-body">
+
+    <main class="auth-page">
+
+        <section class="auth-card" aria-labelledby="register-title">
+
+            <div class="auth-header">
+                <h1 id="register-title">Create Your Account</h1>
+                <p>Join the platform funding dreamers across Egypt</p>
+            </div>
+
+            {% if form.non_field_errors %}
+                <p class="register-message error" role="alert">
+                    {{ form.non_field_errors.0 }}
+                </p>
+            {% endif %}
+
+            <form id="register-form" class="register-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- First & Last Name side by side -->
+                <div class="name-row">
+                    <div class="form-field">
+                        <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                        <input type="text"
+                               id="{{ form.first_name.id_for_label }}"
+                               name="{{ form.first_name.html_name }}"
+                               value="{{ form.first_name.value|default:'' }}"
+                               placeholder="Enter your first name"
+                               autocomplete="given-name"
+                               {% if form.first_name.errors %}class="input-error"{% endif %}
+                               required>
+                        {% if form.first_name.errors %}
+                            <small class="field-error">{{ form.first_name.errors.0 }}</small>
+                        {% else %}
+                            <small class="field-error"></small>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-field">
+                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                        <input type="text"
+                               id="{{ form.last_name.id_for_label }}"
+                               name="{{ form.last_name.html_name }}"
+                               value="{{ form.last_name.value|default:'' }}"
+                               placeholder="Enter your last name"
+                               autocomplete="family-name"
+                               {% if form.last_name.errors %}class="input-error"{% endif %}
+                               required>
+                        {% if form.last_name.errors %}
+                            <small class="field-error">{{ form.last_name.errors.0 }}</small>
+                        {% else %}
+                            <small class="field-error"></small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-field">
+                    <label for="{{ form.email.id_for_label }}">Email Address</label>
+                    <input type="email"
+                           id="{{ form.email.id_for_label }}"
+                           name="{{ form.email.html_name }}"
+                           value="{{ form.email.value|default:'' }}"
+                           placeholder="name@example.com"
+                           autocomplete="email"
+                           {% if form.email.errors %}class="input-error"{% endif %}
+                           required>
+                    {% if form.email.errors %}
+                        <small class="field-error">{{ form.email.errors.0 }}</small>
+                    {% else %}
+                        <small class="field-error"></small>
+                    {% endif %}
+                </div>
+
+                <!-- Mobile Phone -->
+                <div class="form-field">
+                    <label for="{{ form.mobile_phone.id_for_label }}">Mobile Phone</label>
+                    <input type="tel"
+                           id="{{ form.mobile_phone.id_for_label }}"
+                           name="{{ form.mobile_phone.html_name }}"
+                           value="{{ form.mobile_phone.value|default:'' }}"
+                           placeholder="01012345678"
+                           inputmode="tel"
+                           autocomplete="tel"
+                           {% if form.mobile_phone.errors %}class="input-error"{% endif %}
+                           required>
+                    {% if form.mobile_phone.errors %}
+                        <small class="field-error">{{ form.mobile_phone.errors.0 }}</small>
+                    {% else %}
+                        <small class="field-error"></small>
+                    {% endif %}
+                </div>
+
+                <!-- Password -->
+                <div class="form-field">
+                    <label for="{{ form.password1.id_for_label }}">Password</label>
+                    <input type="password"
+                           id="{{ form.password1.id_for_label }}"
+                           name="{{ form.password1.html_name }}"
+                           placeholder="Minimum 8 characters"
+                           autocomplete="new-password"
+                           minlength="8"
+                           {% if form.password1.errors %}class="input-error"{% endif %}
+                           required>
+                    {% if form.password1.errors %}
+                        <small class="field-error">{{ form.password1.errors.0 }}</small>
+                    {% else %}
+                        <small class="field-error"></small>
+                    {% endif %}
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-field">
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                    <input type="password"
+                           id="{{ form.password2.id_for_label }}"
+                           name="{{ form.password2.html_name }}"
+                           placeholder="Repeat your password"
+                           autocomplete="new-password"
+                           {% if form.password2.errors %}class="input-error"{% endif %}
+                           required>
+                    {% if form.password2.errors %}
+                        <small class="field-error">{{ form.password2.errors.0 }}</small>
+                    {% else %}
+                        <small class="field-error"></small>
+                    {% endif %}
+                </div>
+
+                <!-- Profile Picture (optional) -->
+                <div class="form-field">
+                    <label for="{{ form.profile_picture.id_for_label }}">Profile Picture <span style="color:#8190a7; font-weight:400;">(optional)</span></label>
+                    <input type="file"
+                           id="{{ form.profile_picture.id_for_label }}"
+                           name="{{ form.profile_picture.html_name }}"
+                           accept="image/*"
+                           style="padding: 6px 12px; height: auto;">
+                    {% if form.profile_picture.errors %}
+                        <small class="field-error">{{ form.profile_picture.errors.0 }}</small>
+                    {% else %}
+                        <small class="field-error"></small>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="register-button">Sign Up</button>
+
+                <p class="terms-text">
+                    By signing up, you agree to our
+                    <a href="#">Terms of Service</a>
+                    and
+                    <a href="#">Privacy Policy</a>
+                </p>
+
+            </form>
+
+            <div class="auth-divider"></div>
+
+            <p class="login-text">
+                Already have an account?
+                <a href="{% url 'users:login' %}">Login</a>
+            </p>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
+

@@ -1,0 +1,131 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | EgyFund</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/icons/logo_transparent.svg' %}">
+    <link rel="stylesheet" href="{% static 'css/base/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="{% url 'projects:homepage' %}">
+                    <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund Icon" class="logo-img-icon">
+                    <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund Text" class="logo-img-text">
+                </a>
+            </div>
+            <div class="header-actions">
+                <div class="user-navigation">
+                    <button type="button" class="user-navigation-toggle" id="user-navigation-toggle" aria-expanded="false" aria-controls="user-navigation-menu">
+                        <span class="user-avatar">
+                            <img src="{% static 'assets/icons/profile-icon-white-bg.svg' %}" alt="User profile">
+                        </span>
+                        <span class="user-name">{{ user.first_name|default:user.email }}</span>
+                        <span class="user-chevron" aria-hidden="true">&#9660;</span>
+                    </button>
+                    <div class="user-navigation-menu" id="user-navigation-menu" hidden>
+                        <a href="{% url 'users:profile' %}" class="user-menu-item">
+                            <span class="user-menu-text">My Profile</span>
+                        </a>
+                        <div class="user-menu-divider" aria-hidden="true"></div>
+                        <form method="post" action="{% url 'users:logout' %}" style="margin: 0;">
+                            {% csrf_token %}
+                            <button type="submit" class="user-menu-item user-logout" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer;">
+                                <span class="user-menu-text">Log out</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-border"></div>
+    </header>
+
+    <main style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+        <h1 style="margin-bottom: 8px;">My Profile</h1>
+        <p style="color: #666; margin-bottom: 32px;">Manage your EgyFund account</p>
+
+        <section style="background: #f9f9f9; border-radius: 10px; padding: 28px; margin-bottom: 32px;">
+            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="Profile picture"
+                         style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #e84b4b;">
+                {% else %}
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: #e84b4b; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: white; font-size: 2rem; font-weight: 700;">{{ user.first_name.0|upper }}</span>
+                    </div>
+                {% endif %}
+                <div>
+                    <h2 style="margin: 0; font-size: 1.4rem;">{{ user.first_name }} {{ user.last_name }}</h2>
+                    <p style="color: #888; margin: 4px 0;">{{ user.email }}</p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                    <p style="font-weight: 600; color: #555; margin-bottom: 4px;">Mobile</p>
+                    <p>{{ user.mobile_phone }}</p>
+                </div>
+                {% if user.country %}
+                <div>
+                    <p style="font-weight: 600; color: #555; margin-bottom: 4px;">Country</p>
+                    <p>{{ user.country }}</p>
+                </div>
+                {% endif %}
+                {% if user.birthdate %}
+                <div>
+                    <p style="font-weight: 600; color: #555; margin-bottom: 4px;">Date of Birth</p>
+                    <p>{{ user.birthdate|date:"M d, Y" }}</p>
+                </div>
+                {% endif %}
+                {% if user.facebook_profile %}
+                <div>
+                    <p style="font-weight: 600; color: #555; margin-bottom: 4px;">Facebook</p>
+                    <p><a href="{{ user.facebook_profile }}" target="_blank" style="color: #e84b4b;">View Profile</a></p>
+                </div>
+                {% endif %}
+                <div>
+                    <p style="font-weight: 600; color: #555; margin-bottom: 4px;">Member since</p>
+                    <p>{{ user.created_at|date:"M d, Y" }}</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 style="margin-bottom: 16px;">My Projects</h2>
+            {% if user_projects %}
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+                    {% for project in user_projects %}
+                        <article style="border: 1px solid #eee; border-radius: 10px; padding: 16px; background: #fff;">
+                            <span style="font-size: 0.75rem; color: #e84b4b; font-weight: 700; text-transform: uppercase;">{{ project.category.name }}</span>
+                            <h3 style="margin: 8px 0; font-size: 1.05rem;">
+                                <a href="{% url 'projects:project_details' project.id %}" style="color: inherit; text-decoration: none;">{{ project.title }}</a>
+                            </h3>
+                            <p style="color: #666; font-size: 0.85rem; margin-bottom: 12px;">{{ project.details|truncatechars:80 }}</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;">
+                                <span style="color: #555;">Target: <strong>{{ project.target_amount }} EGP</strong></span>
+                                <span style="padding: 2px 8px; border-radius: 20px; background: {% if project.status == 'RUNNING' %}#e6f4ea{% elif project.status == 'COMPLETED' %}#e8f0fe{% else %}#fce8e6{% endif %}; color: #333; font-size: 0.75rem;">
+                                    {{ project.status }}
+                                </span>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p style="color: #888; padding: 24px; background: #f9f9f9; border-radius: 10px; text-align: center;">
+                    You haven't created any projects yet.
+                    <a href="{% url 'projects:create_project' %}" style="color: #e84b4b; font-weight: 600;">Start one now!</a>
+                </p>
+            {% endif %}
+        </section>
+    </main>
+
+    <script src="{% static 'js/pages/home.js' %}" defer></script>
+</body>
+</html>

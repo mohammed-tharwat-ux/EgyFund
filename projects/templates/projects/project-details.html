@@ -14,8 +14,78 @@
 </head>
 <body class="auth-home-page details-page">
 
-    <!-- Navbar placeholder (use your homepage header here in production) -->
-    <header class="site-header"><div class="container header-container"><a href="/">← Back to Home</a></div></header>
+    <!-- Full Navbar -->
+    <header class="site-header">
+        <div class="container header-container">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="{% url 'projects:homepage' %}">
+                    <img src="{% static 'assets/icons/logo_transparent.svg' %}" alt="EgyFund Icon" class="logo-img-icon">
+                    <img src="{% static 'assets/icons/gyFund_logo.svg' %}" alt="EgyFund Text" class="logo-img-text">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="main-navigation" aria-label="Main navigation">
+                <div class="projects-navigation">
+                    <button type="button" class="nav-link projects-toggle" id="projects-toggle" aria-expanded="false" aria-controls="projects-menu">
+                        Projects <span class="projects-arrow" aria-hidden="true">&#9660;</span>
+                    </button>
+                    <div id="projects-menu" class="projects-dropdown" hidden>
+                        <a href="{% url 'projects:homepage' %}" class="project-menu-item">All Projects</a>
+                    </div>
+                </div>
+
+                <div class="categories-navigation">
+                    <button type="button" class="nav-link categories-toggle" id="categories-toggle" aria-expanded="false" aria-controls="categories-menu">
+                        Categories <span class="categories-arrow" aria-hidden="true">&#9660;</span>
+                    </button>
+                    <div id="categories-menu" class="categories-dropdown" hidden>
+                        <div class="categories-dropdown-content">
+                            {% for cat in categories %}
+                                <a href="{% url 'projects:category_projects' cat.id %}">{{ cat.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="header-actions">
+                {% if user.is_authenticated %}
+                    <!-- Authenticated User Menu -->
+                    <div class="user-navigation">
+                        <button type="button" class="user-navigation-toggle" id="user-navigation-toggle" aria-expanded="false" aria-controls="user-navigation-menu">
+                            <span class="user-avatar">
+                                <img src="{% static 'assets/icons/profile-icon-white-bg.svg' %}" alt="User profile">
+                            </span>
+                            <span class="user-name" id="header-user-name">
+                                {{ user.first_name|default:user.email }}
+                            </span>
+                            <span class="user-chevron" aria-hidden="true">&#9660;</span>
+                        </button>
+
+                        <div class="user-navigation-menu" id="user-navigation-menu" hidden>
+                            <a href="{% url 'users:profile' %}" class="user-menu-item">
+                                <span class="user-menu-text">My Profile</span>
+                            </a>
+                            <div class="user-menu-divider" aria-hidden="true"></div>
+
+                            <form method="post" action="{% url 'users:logout' %}" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit" class="user-menu-item user-logout" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer;">
+                                    <span class="user-menu-text">Log out</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'users:register' %}" class="btn-start">Start a Project</a>
+                    <a href="{% url 'users:login' %}" class="btn-signin">Sign In / Up</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="header-border"></div>
+    </header>
 
     <main id="project-details-content">
         <section class="details-section">
@@ -46,11 +116,26 @@
                         <p>pledged of <b>EGP {{ project.target_amount }}</b> target</p>
 
                         <div class="funding-progress">
-                            <span style="width: 50%;"></span>
+                            <span style="width: {{ project.funding_percentage }}%;"></span>
                         </div>
 
-                        <input type="number" min="1" value="500" aria-label="Donation amount">
-                        <button type="button" class="donate-button">Donate Now</button>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p style="color: green; font-weight: bold; margin: 8px 0;">{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if user.is_authenticated %}
+                            <form method="post" action="{% url 'projects:make_donation' project.id %}">
+                                {% csrf_token %}
+                                <input type="number" name="amount" min="1" value="500" aria-label="Donation amount">
+                                <button type="submit" class="donate-button">Donate Now</button>
+                            </form>
+                        {% else %}
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 12px;">
+                                <a href="{% url 'users:login' %}">Sign in</a> to donate to this project.
+                            </p>
+                        {% endif %}
                     </aside>
                 </div>
             </div>
@@ -76,5 +161,7 @@
             </div>
         </section>
     </main>
+
+    <script src="{% static 'js/pages/home.js' %}" defer></script>
 </body>
 </html>
